@@ -18,10 +18,10 @@ import {
 } from "lucide-react";
 
 const stats = [
-  { label: "Total Records", value: "1,250", detail: "All registered files", icon: Files, accent: "#08689F" },
-  { label: "Available", value: "1,180", detail: "Ready for retrieval", icon: FileCheck2, accent: "#4F8F3A" },
-  { label: "Retrieved", value: "54", detail: "Currently out", icon: FileArchive, accent: "#08689F" },
-  { label: "Pending Return", value: "16", detail: "Awaiting return", icon: Clock3, accent: "#D9A928" },
+  { label: "Total Records", value: "—", detail: "All registered files", icon: Files, accent: "#08689F" },
+  { label: "Available", value: "—", detail: "Ready for retrieval", icon: FileCheck2, accent: "#4F8F3A" },
+  { label: "Retrieved", value: "—", detail: "Currently out", icon: FileArchive, accent: "#08689F" },
+  { label: "Pending Return", value: "—", detail: "Awaiting return", icon: Clock3, accent: "#D9A928" },
 ];
 
 const activities = [
