@@ -19,7 +19,7 @@ function StatusBadge({ status }) {
   return <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold ${styles[status] || "bg-slate-50 text-slate-600 border-slate-200"}`}>{status}</span>;
 }
 
-function SearchRecords({ onBack }) {
+function SearchRecords({ onBack, onSelectRecord }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("All");
 
@@ -98,7 +98,7 @@ function SearchRecords({ onBack }) {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {filtered.map((record) => (
-                  <tr key={record.id} className="cursor-pointer hover:bg-[#F7FAFC]">
+                  <tr key={record.id} onClick={() => onSelectRecord(record)} className="cursor-pointer hover:bg-[#F7FAFC]">
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
                         <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#EDF3F7] text-[#08689F]"><FileArchive size={18} /></div>
