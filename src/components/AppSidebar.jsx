@@ -24,7 +24,7 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
         <p className="px-3 pb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-200">Workspace</p>
         <div className="space-y-1">
           {navItems.map(({ label, icon: Icon, page }) => {
-            const active = currentPage === page || (currentPage === "record" && page === "search");
+            const active = currentPage === page || (currentPage === "record" && page === "search") || (currentPage === "add-record" && page === "records");
             return <button key={label} onClick={() => onNavigate(page)}
               className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition ${active ? "bg-white text-[#08689F] shadow-sm" : "text-blue-50 hover:bg-white/10"}`}>
               <Icon size={18}/>{label}
