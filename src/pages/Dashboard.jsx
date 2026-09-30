@@ -24,12 +24,7 @@ const stats = [
   { label: "Pending Return", value: "—", detail: "Awaiting return", icon: Clock3, accent: "#D9A928" },
 ];
 
-const activities = [
-  { id: "PE-00125", name: "Juan Dela Cruz", type: "Policy Envelope", action: "Retrieved", person: "Ma'am Pearl", time: "10 minutes ago" },
-  { id: "AF-00342", name: "Maria Santos", type: "Active File", action: "Returned", person: "Records Section", time: "35 minutes ago" },
-  { id: "RT-00092", name: "Pedro Reyes", type: "Retirement", action: "Forwarded", person: "Retirement Section", time: "1 hour ago" },
-  { id: "IF-00218", name: "Ana Garcia", type: "Inactive File", action: "Retrieved", person: "Ma'am Pearl", time: "2 hours ago" },
-];
+const activities = [];
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, active: true },
@@ -199,6 +194,13 @@ function Dashboard({ onLogout, onNavigate }) {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
+                    {activities.length === 0 && (
+                      <tr>
+                        <td colSpan="5" className="px-6 py-10 text-center text-sm text-slate-400">
+                          No file activity yet.
+                        </td>
+                      </tr>
+                    )}
                     {activities.map((item) => (
                       <tr key={item.id} className="hover:bg-slate-50/70">
                         <td className="px-6 py-4">
@@ -221,10 +223,10 @@ function Dashboard({ onLogout, onNavigate }) {
               <p className="mt-1 text-xs text-gray-400">Current prototype categories</p>
               <div className="mt-5 space-y-3">
                 {[
-                  ["Policy Envelopes", "540", "#08689F"],
-                  ["Active Files", "402", "#4F8F3A"],
-                  ["Inactive Files", "196", "#7C8796"],
-                  ["Retirement", "112", "#D9A928"],
+                  ["Policy Envelopes", "—", "#08689F"],
+                  ["Active Files", "—", "#4F8F3A"],
+                  ["Inactive Files", "—", "#7C8796"],
+                  ["Retirement", "—", "#D9A928"],
                 ].map(([label, count, color]) => (
                   <button key={label} className="flex w-full items-center justify-between rounded-md border border-slate-100 p-3 text-left hover:bg-slate-50">
                     <div className="flex items-center gap-3">
@@ -237,7 +239,7 @@ function Dashboard({ onLogout, onNavigate }) {
               </div>
               <div className="mt-6 rounded-md bg-[#F3F5F7] p-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Prototype note</p>
-                <p className="mt-2 text-sm leading-relaxed text-gray-600">Counts and activities are sample data for layout review and will be replaced by database records.</p>
+                <p className="mt-2 text-sm leading-relaxed text-gray-600">Dashboard data will appear here once records and transactions are added.</p>
               </div>
             </aside>
           </div>
