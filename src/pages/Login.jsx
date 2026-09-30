@@ -12,6 +12,11 @@ function Login({ onLogin }) {
   return (
     <main className="min-h-screen bg-[#F3F5F7] flex">
       <section className="hidden lg:flex lg:w-[52%] bg-[#075A89] relative overflow-hidden items-center justify-center">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{ backgroundImage: "url('/gsis-building-bg.svg')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#075A89]/95 via-[#075A89]/82 to-[#075A89]/68" />
         <div className="absolute inset-x-0 top-0 h-1 bg-[#4F8F3A]" />
         <div className="absolute bottom-0 left-0 h-1 w-1/3 bg-[#D9A928]" />
 
