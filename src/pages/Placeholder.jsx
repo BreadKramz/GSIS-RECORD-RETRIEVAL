@@ -1,0 +1,3 @@
+import { Construction } from "lucide-react";
+function Placeholder({ title, description }) { return <div className="min-h-screen bg-[#F3F5F7] text-[#243746]"><header className="border-b border-slate-200 bg-white"><div className="flex min-h-20 items-center px-5 md:px-8"><div><h1 className="text-xl font-bold md:text-2xl">{title}</h1><p className="text-sm text-slate-500">{description}</p></div></div></header><main className="p-8"><div className="rounded-lg border border-slate-200 bg-white py-20 text-center shadow-sm"><Construction size={34} className="mx-auto text-slate-300"/><p className="mt-3 font-semibold">This module is ready for backend integration.</p></div></main></div> }
+export default Placeholder;
