@@ -26,18 +26,19 @@ function Login({ onLogin }) {
         <div className="absolute bottom-0 left-0 w-[42%] h-[5px] bg-[#F2BC19]" />
 
         <div className="relative z-10 w-full max-w-[800px] px-14 xl:px-20 2xl:px-24 text-white">
-          <div className="flex items-center gap-5 mb-12">
-            <div className="w-[74px] h-[74px] bg-white rounded-xl flex items-center justify-center shadow-xl">
-              <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-[66px] w-[66px] object-contain" />
+          <div className="mb-12">
+            <div className="inline-flex max-w-[570px] items-center rounded-2xl border border-white/30 bg-white/94 px-5 py-3 shadow-2xl shadow-slate-950/20 backdrop-blur-sm">
+              <img
+                src="/gsis-new-logo.png.png"
+                alt="GSIS Government Service Insurance System"
+                className="h-[74px] w-auto max-w-full object-contain"
+              />
             </div>
-            <div>
-              <p className="text-[15px] font-bold tracking-[0.24em] text-white/90">GSIS</p>
-              <h1 className="mt-1 text-[32px] xl:text-[38px] leading-none font-bold tracking-tight">
+            <div className="mt-5 border-l-4 border-[#F2BC19] pl-4">
+              <p className="text-[13px] font-bold uppercase tracking-[0.22em] text-white/80">Internal Records Workspace</p>
+              <h1 className="mt-1 text-[30px] font-bold leading-tight tracking-tight text-white xl:text-[34px]">
                 Record Retrieval System
               </h1>
-              <p className="mt-3 text-lg xl:text-xl text-white/90">
-                Government Service Insurance System
-              </p>
             </div>
           </div>
 
@@ -72,9 +73,11 @@ function Login({ onLogin }) {
         <div className="absolute -right-24 bottom-[-90px] h-72 w-72 rotate-45 rounded-[55px] bg-[#F4F8FB]" />
 
         <div className="relative z-10 w-full max-w-[480px]">
-          <div className="lg:hidden mb-10 text-center">
-            <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-16 w-16 mx-auto object-contain" />
-            <h1 className="mt-3 text-2xl font-bold text-[#08689F]">GSIS Record Retrieval</h1>
+          <div className="mb-10 text-center lg:hidden">
+            <div className="mx-auto flex max-w-[330px] items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+              <img src="/gsis-new-logo.png.png" alt="GSIS Government Service Insurance System" className="h-16 w-auto max-w-full object-contain" />
+            </div>
+            <h1 className="mt-4 text-2xl font-bold text-[#08689F]">Record Retrieval System</h1>
           </div>
 
           <div className="mb-10">
