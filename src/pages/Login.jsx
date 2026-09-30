@@ -14,13 +14,12 @@ function Login({ onLogin }) {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/gsis-building.bg.png')",
+          backgroundImage: "url('/gsis-login-background.png')",
           backgroundPosition: "center center",
         }}
       />
-      <div className="absolute inset-0 bg-[#031827]/35" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#031827]/92 via-[#063B5D]/62 to-[#031827]/35" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#02121E]/70 via-transparent to-[#041C2E]/35" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#031827]/72 via-[#031827]/22 to-[#031827]/18" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#02121E]/42 via-transparent to-black/5" />
 
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#4F963B] via-[#0875B5] to-[#F2BC19]" />
 
