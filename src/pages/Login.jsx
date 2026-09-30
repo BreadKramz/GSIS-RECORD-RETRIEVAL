@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Eye, EyeOff, FileText, FolderOpen, LockKeyhole, Archive, UserRound } from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, ShieldCheck, Database, UserRound } from "lucide-react";
 
 function Login({ onLogin }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,119 +10,120 @@ function Login({ onLogin }) {
   };
 
   return (
-    <main className="min-h-screen bg-white flex overflow-hidden">
-      <section className="hidden lg:flex lg:w-[61%] xl:w-[63%] relative overflow-hidden items-center">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/gsis-building.bg.png')",
-            backgroundPosition: "center center",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#062F49]/88 via-[#075A89]/58 to-[#075A89]/12" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#041F31]/45 via-transparent to-[#0A6A9F]/10" />
+    <main className="relative min-h-screen overflow-hidden bg-[#061827]">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/gsis-building.bg.png')",
+          backgroundPosition: "center center",
+        }}
+      />
+      <div className="absolute inset-0 bg-[#031827]/35" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#031827]/92 via-[#063B5D]/62 to-[#031827]/35" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#02121E]/70 via-transparent to-[#041C2E]/35" />
 
-        <div className="absolute top-0 inset-x-0 h-[5px] bg-[#4F963B]" />
-        <div className="absolute bottom-0 left-0 w-[42%] h-[5px] bg-[#F2BC19]" />
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#4F963B] via-[#0875B5] to-[#F2BC19]" />
 
-        <div className="relative z-10 w-full max-w-[800px] px-14 xl:px-20 2xl:px-24 text-white">
-          <div className="mb-12">
-            <img
-              src="/gsis-new-logo.png"
-              alt="GSIS Government Service Insurance System"
-              className="h-[92px] w-auto max-w-[600px] object-contain brightness-[1.08] drop-shadow-[0_3px_10px_rgba(0,0,0,0.32)]"
-            />
-            <div className="mt-5 border-l-4 border-[#F2BC19] pl-4">
-              <p className="text-[13px] font-bold uppercase tracking-[0.22em] text-white/75">Internal Records Workspace</p>
-              <h1 className="mt-1 text-[30px] font-bold leading-tight tracking-tight text-white xl:text-[34px]">
-                Record Retrieval System
-              </h1>
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1600px] items-center gap-12 px-8 py-10 lg:px-14 xl:gap-20 xl:px-20">
+        <section className="hidden min-w-0 flex-1 lg:block">
+          <img
+            src="/gsis-new-logo.png"
+            alt="GSIS Government Service Insurance System"
+            className="h-auto w-full max-w-[700px] object-contain brightness-110 contrast-110 drop-shadow-[0_8px_24px_rgba(0,0,0,0.38)]"
+          />
+
+          <div className="mt-8 max-w-[760px]">
+            <h1 className="text-[46px] font-bold leading-[1.04] tracking-[-0.035em] text-white drop-shadow-lg xl:text-[58px]">
+              Record Retrieval System
+            </h1>
+            <p className="mt-5 max-w-[690px] text-[18px] leading-relaxed text-white/78 xl:text-[20px]">
+              Secure access to GSIS physical records, file movement, retrieval, forwarding, and return history.
+            </p>
+
+            <div className="mt-9 flex flex-wrap gap-3">
+              <div className="flex items-center gap-2.5 rounded-full border border-white/20 bg-[#061E30]/55 px-5 py-2.5 text-sm font-medium text-white/90 shadow-sm backdrop-blur-md">
+                <ShieldCheck size={17} className="text-[#6CB6FF]" /> Secure Access
+              </div>
+              <div className="flex items-center gap-2.5 rounded-full border border-white/20 bg-[#061E30]/55 px-5 py-2.5 text-sm font-medium text-white/90 shadow-sm backdrop-blur-md">
+                <Database size={17} className="text-[#6CB6FF]" /> Internal Records
+              </div>
+              <div className="flex items-center gap-2.5 rounded-full border border-white/20 bg-[#061E30]/55 px-5 py-2.5 text-sm font-medium text-white/90 shadow-sm backdrop-blur-md">
+                <UserRound size={17} className="text-[#6CB6FF]" /> Authorized Personnel Only
+              </div>
             </div>
           </div>
+        </section>
 
-          <h2 className="text-[46px] xl:text-[56px] 2xl:text-[62px] font-bold tracking-[-0.035em] leading-[1.08] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.18)]">
-            Find records.<br />
-            Track movement.<br />
-            Retrieve efficiently.
-          </h2>
-
-          <p className="mt-7 text-[18px] xl:text-[20px] text-white/88 leading-relaxed max-w-[650px]">
-            A centralized workspace for monitoring the retrieval,
-            forwarding, location, and return of physical records.
-          </p>
-
-          <div className="mt-9 flex flex-wrap gap-3">
-            <div className="flex items-center gap-2.5 rounded-full border border-white/25 bg-[#063D5E]/42 px-5 py-2.5 text-sm font-medium text-white shadow-sm backdrop-blur-md">
-              <FileText size={17} /> Policy Envelopes
-            </div>
-            <div className="flex items-center gap-2.5 rounded-full border border-white/25 bg-[#063D5E]/42 px-5 py-2.5 text-sm font-medium text-white shadow-sm backdrop-blur-md">
-              <FolderOpen size={17} /> Active Files
-            </div>
-            <div className="flex items-center gap-2.5 rounded-full border border-white/25 bg-[#063D5E]/42 px-5 py-2.5 text-sm font-medium text-white shadow-sm backdrop-blur-md">
-              <Archive size={17} /> Retirement
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-      <section className="flex-1 relative flex items-center justify-center bg-[#FBFCFE] px-8 py-10">
-        <div className="absolute -right-28 top-24 h-72 w-72 rotate-45 rounded-[55px] bg-[#F1F6FA]" />
-        <div className="absolute -right-24 bottom-[-90px] h-72 w-72 rotate-45 rounded-[55px] bg-[#F4F8FB]" />
-
-        <div className="relative z-10 w-full max-w-[480px]">
-          <div className="mb-10 text-center lg:hidden">
-            <img
-              src="/gsis-new-logo.png"
-              alt="GSIS Government Service Insurance System"
-              className="mx-auto h-16 w-auto max-w-[330px] object-contain"
-            />
-            <h1 className="mt-4 text-2xl font-bold text-[#08689F]">Record Retrieval System</h1>
-          </div>
-
-          <div className="mb-10">
-            <p className="text-sm font-bold text-[#08689F] uppercase tracking-[0.24em] mb-3">Authorized Access</p>
-            <h2 className="text-[34px] font-bold tracking-tight text-[#172D3F]">Welcome back</h2>
-            <p className="text-gray-500 mt-2 text-[17px]">Sign in to access the Record Retrieval System.</p>
-          </div>
-
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="username" className="block text-sm font-semibold text-[#243746] mb-2.5">Username</label>
-              <div className="relative">
-                <UserRound size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input id="username" type="text" autoComplete="username" placeholder="Enter your username"
-                  className="w-full h-14 pl-12 pr-4 bg-white border border-slate-300 rounded-lg outline-none transition shadow-sm focus:border-[#0876B9] focus:ring-4 focus:ring-[#0876B9]/10" />
+        <section className="mx-auto w-full max-w-[520px] lg:mx-0 lg:shrink-0">
+          <div className="rounded-[28px] border border-white/20 bg-[#10273B]/82 p-7 shadow-[0_24px_70px_rgba(0,0,0,0.42)] backdrop-blur-xl sm:p-9 xl:p-11">
+            <div className="mb-8 lg:hidden">
+              <img
+                src="/gsis-new-logo.png"
+                alt="GSIS Government Service Insurance System"
+                className="mx-auto h-auto w-full max-w-[330px] object-contain brightness-110 drop-shadow-lg"
+              />
+              <div className="mt-6 border-t border-white/10 pt-6 text-center">
+                <h1 className="text-2xl font-bold text-white">Record Retrieval System</h1>
               </div>
             </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-semibold text-[#243746] mb-2.5">Password</label>
-              <div className="relative">
-                <LockKeyhole size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input id="password" type={showPassword ? "text" : "password"} autoComplete="current-password" placeholder="Enter your password"
-                  className="w-full h-14 pl-12 pr-12 bg-white border border-slate-300 rounded-lg outline-none transition shadow-sm focus:border-[#0876B9] focus:ring-4 focus:ring-[#0876B9]/10" />
-                <button type="button" aria-label={showPassword ? "Hide password" : "Show password"}
-                  onClick={() => setShowPassword((current) => !current)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer">
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
+            <div className="mb-8">
+              <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#6CB6FF]">Authorized Access</p>
+              <h2 className="text-[34px] font-bold tracking-tight text-white">Sign In</h2>
+              <p className="mt-2 text-[16px] text-slate-300">Use your GSIS credentials to continue.</p>
             </div>
 
-            <button type="submit"
-              className="w-full h-14 bg-[#0875B5] hover:bg-[#06679F] active:bg-[#055A8B] text-white text-[17px] font-bold rounded-lg transition-colors cursor-pointer shadow-md shadow-[#08689F]/15">
-              Sign In
-            </button>
-          </form>
+            <form className="space-y-5" onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="username" className="mb-2 block text-sm font-semibold text-slate-200">Username</label>
+                <div className="relative">
+                  <UserRound size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    id="username"
+                    type="text"
+                    autoComplete="username"
+                    placeholder="Enter your username"
+                    className="h-14 w-full rounded-xl border border-white/15 bg-white/8 pl-12 pr-4 text-white outline-none transition placeholder:text-slate-400 focus:border-[#58AFFF] focus:bg-white/10 focus:ring-4 focus:ring-[#0876B9]/20"
+                  />
+                </div>
+              </div>
 
-          <div className="mt-11 pt-7 border-t border-slate-200">
-            <img src="/gsis-government-branding.jpg" alt="GSIS, Ginhawa for All, and Bagong Pilipinas"
-              className="mx-auto mb-5 max-h-[68px] w-auto max-w-full object-contain" />
-            <p className="text-center text-xs text-slate-400">For authorized GSIS personnel only</p>
+              <div>
+                <label htmlFor="password" className="mb-2 block text-sm font-semibold text-slate-200">Password</label>
+                <div className="relative">
+                  <LockKeyhole size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    placeholder="Enter your password"
+                    className="h-14 w-full rounded-xl border border-white/15 bg-white/8 pl-12 pr-12 text-white outline-none transition placeholder:text-slate-400 focus:border-[#58AFFF] focus:bg-white/10 focus:ring-4 focus:ring-[#0876B9]/20"
+                  />
+                  <button
+                    type="button"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    onClick={() => setShowPassword((current) => !current)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-slate-400 transition hover:text-white"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="mt-2 h-14 w-full cursor-pointer rounded-xl bg-gradient-to-r from-[#1684D8] to-[#256FE8] text-[16px] font-bold text-white shadow-lg shadow-[#0875B5]/20 transition hover:brightness-110 active:scale-[0.995]"
+              >
+                Sign In
+              </button>
+            </form>
+
+            <div className="mt-8 border-t border-white/10 pt-6 text-center">
+              <p className="text-xs text-slate-400">For authorized GSIS personnel only</p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }
