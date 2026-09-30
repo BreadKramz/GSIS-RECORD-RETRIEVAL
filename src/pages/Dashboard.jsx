@@ -60,7 +60,7 @@ function Dashboard() {
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-[#0067A8] text-white lg:flex">
         <div className="flex h-20 items-center gap-3 border-b border-white/15 px-6">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white">
-            <Files size={23} className="text-[#0067A8]" />
+            <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-9 w-9 object-contain" />
           </div>
           <div>
             <p className="text-lg font-bold leading-tight">GSIS</p>
