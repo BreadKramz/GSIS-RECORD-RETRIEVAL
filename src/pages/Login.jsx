@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Eye, EyeOff, LockKeyhole, UserRound, Files } from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, UserRound } from "lucide-react";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,7 +18,7 @@ function Login() {
         <div className="relative z-10 max-w-xl px-12 text-white">
           <div className="flex items-center gap-4 mb-12">
             <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-              <Files className="text-[#0067A8]" size={32} strokeWidth={2.2} />
+              <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-14 w-14 object-contain" />
             </div>
             <div>
               <p className="text-sm font-semibold tracking-[0.2em] text-blue-100">GSIS</p>
@@ -50,7 +50,7 @@ function Login() {
         <div className="w-full max-w-md">
           <div className="lg:hidden mb-10 text-center">
             <div className="w-14 h-14 mx-auto mb-3 bg-[#0067A8] rounded-xl flex items-center justify-center">
-              <Files className="text-white" size={27} />
+              <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-12 w-12 object-contain" />
             </div>
             <h1 className="text-2xl font-bold text-[#0067A8]">GSIS Record Retrieval</h1>
           </div>
@@ -113,6 +113,11 @@ function Login() {
           </form>
 
           <div className="mt-10 pt-6 border-t border-gray-200">
+            <img
+              src="/gsis-government-branding.jpg"
+              alt="GSIS, Ginhawa for All, and Bagong Pilipinas"
+              className="mx-auto mb-5 max-h-16 w-auto max-w-full object-contain"
+            />
             <p className="text-center text-xs text-gray-400">
               For authorized GSIS personnel only
             </p>
