@@ -34,8 +34,8 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
         <div className="my-6 border-t border-white/15"/>
         <p className="px-3 pb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-200">Administration</p>
         <div className="space-y-1">
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-blue-50 hover:bg-white/10"><Users size={18}/>User Management</button>
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-blue-50 hover:bg-white/10"><Settings size={18}/>Settings</button>
+          <button onClick={() => onNavigate("users")} className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${currentPage === "users" ? "bg-white text-[#08689F] shadow-sm" : "text-blue-50 hover:bg-white/10"}`}><Users size={18}/>User Management</button>
+          <button onClick={() => onNavigate("settings")} className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${currentPage === "settings" ? "bg-white text-[#08689F] shadow-sm" : "text-blue-50 hover:bg-white/10"}`}><Settings size={18}/>Settings</button>
         </div>
       </nav>
       <div className="border-t border-white/15 p-4">
