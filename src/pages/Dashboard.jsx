@@ -66,7 +66,7 @@ function Dashboard({ onLogout, onNavigate }) {
         <nav className="flex-1 px-3 py-6">
           <p className="px-3 pb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-200">Workspace</p>
           <div className="space-y-1">
-            {navItems.map(({ label, icon: Icon, active }) => (
+            {navItems.map(({ label, icon: Icon, active, page }) => (
               <button
                 key={label}
                 onClick={() => page && onNavigate(page)}
@@ -168,7 +168,7 @@ function Dashboard({ onLogout, onNavigate }) {
                     className="h-13 w-full bg-transparent px-3 text-sm text-[#243746] outline-none"
                   />
                 </div>
-                <button className="m-1.5 rounded-md bg-[#08689F] px-5 text-sm font-semibold text-white hover:bg-[#075A89]">Search</button>
+                <button onClick={() => onNavigate("search")} className="m-1.5 rounded-md bg-[#08689F] px-5 text-sm font-semibold text-white hover:bg-[#075A89]">Search</button>
               </div>
             </div>
           </section>
