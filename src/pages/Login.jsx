@@ -19,46 +19,46 @@ function Login({ onLogin }) {
             backgroundPosition: "center center",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/96 via-white/82 to-white/10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#EAF3F8]/70 via-white/5 to-white/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#062F49]/88 via-[#075A89]/58 to-[#075A89]/12" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#041F31]/45 via-transparent to-[#0A6A9F]/10" />
 
         <div className="absolute top-0 inset-x-0 h-[5px] bg-[#4F963B]" />
         <div className="absolute bottom-0 left-0 w-[42%] h-[5px] bg-[#F2BC19]" />
 
-        <div className="relative z-10 w-full max-w-[800px] px-14 xl:px-20 2xl:px-24 text-[#17364B]">
+        <div className="relative z-10 w-full max-w-[800px] px-14 xl:px-20 2xl:px-24 text-white">
           <div className="mb-12">
             <img
               src="/gsis-new-logo.png"
               alt="GSIS Government Service Insurance System"
-              className="h-[92px] w-auto max-w-[600px] object-contain drop-shadow-[0_3px_8px_rgba(15,61,87,0.12)]"
+              className="h-[92px] w-auto max-w-[600px] object-contain brightness-[1.08] drop-shadow-[0_3px_10px_rgba(0,0,0,0.32)]"
             />
             <div className="mt-5 border-l-4 border-[#F2BC19] pl-4">
-              <p className="text-[13px] font-bold uppercase tracking-[0.22em] text-[#4E7187]">Internal Records Workspace</p>
-              <h1 className="mt-1 text-[30px] font-bold leading-tight tracking-tight text-[#075A89] xl:text-[34px]">
+              <p className="text-[13px] font-bold uppercase tracking-[0.22em] text-white/75">Internal Records Workspace</p>
+              <h1 className="mt-1 text-[30px] font-bold leading-tight tracking-tight text-white xl:text-[34px]">
                 Record Retrieval System
               </h1>
             </div>
           </div>
 
-          <h2 className="text-[46px] xl:text-[56px] 2xl:text-[62px] font-bold tracking-[-0.035em] leading-[1.08] text-[#123D59]">
+          <h2 className="text-[46px] xl:text-[56px] 2xl:text-[62px] font-bold tracking-[-0.035em] leading-[1.08] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.18)]">
             Find records.<br />
             Track movement.<br />
             Retrieve efficiently.
           </h2>
 
-          <p className="mt-7 text-[18px] xl:text-[20px] text-[#35586E] leading-relaxed max-w-[650px]">
+          <p className="mt-7 text-[18px] xl:text-[20px] text-white/88 leading-relaxed max-w-[650px]">
             A centralized workspace for monitoring the retrieval,
             forwarding, location, and return of physical records.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
-            <div className="flex items-center gap-2.5 rounded-full border border-[#0A6A9F]/20 bg-white/72 px-5 py-2.5 text-sm font-semibold text-[#075A89] shadow-sm backdrop-blur-md">
+            <div className="flex items-center gap-2.5 rounded-full border border-white/25 bg-[#063D5E]/42 px-5 py-2.5 text-sm font-medium text-white shadow-sm backdrop-blur-md">
               <FileText size={17} /> Policy Envelopes
             </div>
-            <div className="flex items-center gap-2.5 rounded-full border border-[#0A6A9F]/20 bg-white/72 px-5 py-2.5 text-sm font-semibold text-[#075A89] shadow-sm backdrop-blur-md">
+            <div className="flex items-center gap-2.5 rounded-full border border-white/25 bg-[#063D5E]/42 px-5 py-2.5 text-sm font-medium text-white shadow-sm backdrop-blur-md">
               <FolderOpen size={17} /> Active Files
             </div>
-            <div className="flex items-center gap-2.5 rounded-full border border-[#0A6A9F]/20 bg-white/72 px-5 py-2.5 text-sm font-semibold text-[#075A89] shadow-sm backdrop-blur-md">
+            <div className="flex items-center gap-2.5 rounded-full border border-white/25 bg-[#063D5E]/42 px-5 py-2.5 text-sm font-medium text-white shadow-sm backdrop-blur-md">
               <Archive size={17} /> Retirement
             </div>
           </div>
