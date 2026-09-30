@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import SearchRecords from "./pages/SearchRecords";
 import RecordDetails from "./pages/RecordDetails";
+import AppSidebar from "./components/AppSidebar";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -19,15 +20,21 @@ function App() {
     return <Login onLogin={() => setIsAuthenticated(true)} />;
   }
 
+  let content;
   if (page === "search") {
-    return <SearchRecords onBack={() => setPage("dashboard")} onSelectRecord={(record) => { setSelectedRecord(record); setPage("record"); }} />;
+    content = <SearchRecords onBack={() => setPage("dashboard")} onSelectRecord={(record) => { setSelectedRecord(record); setPage("record"); }} />;
+  } else if (page === "record" && selectedRecord) {
+    content = <RecordDetails record={selectedRecord} onBack={() => setPage("search")} />;
+  } else {
+    content = <Dashboard onLogout={handleLogout} onNavigate={setPage} embedded />;
   }
 
-  if (page === "record" && selectedRecord) {
-    return <RecordDetails record={selectedRecord} onBack={() => setPage("search")} />;
-  }
-
-  return <Dashboard onLogout={handleLogout} onNavigate={setPage} />;
+  return (
+    <>
+      <AppSidebar currentPage={page} onNavigate={setPage} onLogout={handleLogout} />
+      <div className="lg:pl-64">{content}</div>
+    </>
+  );
 }
 
 export default App;
