@@ -11,31 +11,22 @@ function Login({ onLogin }) {
 
   return (
     <main className="min-h-screen bg-white flex overflow-hidden">
-      <section className="hidden lg:flex lg:w-[62%] xl:w-[64%] relative overflow-hidden items-center">
+      <section className="hidden lg:flex lg:w-[61%] xl:w-[63%] relative overflow-hidden items-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url('https://i0.wp.com/www.theurbanroamer.com/wp-content/uploads/2013/10/pa120094.jpg')",
-            backgroundPosition: "58% center",
+            backgroundImage: "url('/gsis-building.bg.png')",
+            backgroundPosition: "center center",
           }}
         />
-        <div className="absolute inset-0 bg-[#045B91]/42" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#034F82]/95 via-[#075E96]/68 to-[#075E96]/22" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#034D7D]/80 via-transparent to-[#075E96]/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#034F82]/72 via-[#075E96]/28 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#034D7D]/24 via-transparent to-[#075E96]/10" />
 
         <div className="absolute top-0 inset-x-0 h-[5px] bg-[#4F963B]" />
         <div className="absolute bottom-0 left-0 w-[42%] h-[5px] bg-[#F2BC19]" />
 
-        <img
-          src="/gsis-logo.svg"
-          alt=""
-          aria-hidden="true"
-          className="absolute -left-14 bottom-8 w-[300px] opacity-[0.09] brightness-0 invert pointer-events-none"
-        />
-
-        <div className="relative z-10 w-full max-w-[760px] px-14 xl:px-20 text-white">
-          <div className="flex items-center gap-5 mb-14">
+        <div className="relative z-10 w-full max-w-[800px] px-14 xl:px-20 2xl:px-24 text-white">
+          <div className="flex items-center gap-5 mb-12">
             <div className="w-[74px] h-[74px] bg-white rounded-xl flex items-center justify-center shadow-xl">
               <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-[66px] w-[66px] object-contain" />
             </div>
@@ -50,7 +41,7 @@ function Login({ onLogin }) {
             </div>
           </div>
 
-          <h2 className="text-[48px] xl:text-[60px] font-bold tracking-[-0.035em] leading-[1.08] drop-shadow-sm">
+          <h2 className="text-[46px] xl:text-[56px] 2xl:text-[62px] font-bold tracking-[-0.035em] leading-[1.08] drop-shadow-sm">
             Find records.<br />
             Track movement.<br />
             Retrieve efficiently.
@@ -74,10 +65,6 @@ function Login({ onLogin }) {
           </div>
         </div>
 
-        <svg className="absolute bottom-0 left-0 z-[5] h-[120px] w-full pointer-events-none" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,72 C190,118 310,24 500,67 C700,112 815,32 1000,54 L1000,120 L0,120 Z" fill="rgba(255,255,255,.14)" />
-          <path d="M0,94 C210,132 330,50 520,88 C720,128 835,56 1000,73 L1000,120 L0,120 Z" fill="rgba(7,104,159,.48)" />
-        </svg>
       </section>
 
       <section className="flex-1 relative flex items-center justify-center bg-[#FBFCFE] px-8 py-10">
