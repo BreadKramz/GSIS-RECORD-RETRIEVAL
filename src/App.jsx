@@ -4,6 +4,8 @@ import Dashboard from "./pages/Dashboard";
 import SearchRecords from "./pages/SearchRecords";
 import RecordDetails from "./pages/RecordDetails";
 import AppSidebar from "./components/AppSidebar";
+import Records from "./pages/Records";
+import AddRecord from "./pages/AddRecord";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -25,6 +27,10 @@ function App() {
     content = <SearchRecords onBack={() => setPage("dashboard")} onSelectRecord={(record) => { setSelectedRecord(record); setPage("record"); }} />;
   } else if (page === "record" && selectedRecord) {
     content = <RecordDetails record={selectedRecord} onBack={() => setPage("search")} />;
+  } else if (page === "records") {
+    content = <Records onNavigate={setPage} />;
+  } else if (page === "add-record") {
+    content = <AddRecord onBack={() => setPage("records")} />;
   } else {
     content = <Dashboard onLogout={handleLogout} onNavigate={setPage} embedded />;
   }
