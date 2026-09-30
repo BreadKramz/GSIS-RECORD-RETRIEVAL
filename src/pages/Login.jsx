@@ -35,7 +35,7 @@ function Login({ onLogin }) {
             <img
               src="/gsis-new-logo.png"
               alt="GSIS Government Service Insurance System"
-              className="w-full max-w-[690px] object-contain brightness-[1.08] contrast-[1.06] drop-shadow-[0_10px_28px_rgba(0,0,0,0.38)]"
+              className="w-full max-w-[720px] object-contain brightness-[1.04] contrast-[1.08] saturate-[1.08] drop-shadow-[0_10px_30px_rgba(0,0,0,0.42)]"
             />
 
             <div className="mt-8 max-w-[760px]">
@@ -65,13 +65,14 @@ function Login({ onLogin }) {
           </div>
         </section>
 
-        <section className="mx-auto w-full max-w-[500px] lg:mx-0 lg:shrink-0">
-          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.22] bg-[#10283b]/55 p-[1px] shadow-[0_30px_90px_rgba(0,0,0,0.46)] backdrop-blur-[28px]">
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.13] via-white/[0.025] to-[#0b6ba7]/[0.08]" />
-            <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[#278CE1]/15 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -left-20 h-52 w-52 rounded-full bg-[#4F963B]/10 blur-3xl" />
+        <section className="mx-auto w-full max-w-[510px] lg:mx-0 lg:shrink-0">
+          <div className="relative overflow-hidden rounded-[30px] border border-white/[0.28] bg-white/[0.075] p-[1px] shadow-[0_32px_100px_rgba(0,0,0,0.52)] backdrop-blur-[34px]">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.18] via-white/[0.035] to-[#1385d6]/[0.09]" />
+            <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent" />
+            <div className="pointer-events-none absolute -right-20 -top-24 h-60 w-60 rounded-full bg-[#42A9FF]/18 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-28 -left-20 h-60 w-60 rounded-full bg-[#4F963B]/10 blur-3xl" />
 
-            <div className="relative rounded-[27px] bg-[#0a1e2f]/40 p-7 sm:p-9 xl:p-10">
+            <div className="relative rounded-[29px] bg-[#071a29]/52 p-7 sm:p-9 xl:p-10">
               <div className="mb-8 lg:hidden">
                 <img
                   src="/gsis-new-logo.png"
@@ -112,7 +113,7 @@ function Login({ onLogin }) {
                       type="text"
                       autoComplete="username"
                       placeholder="Enter your username"
-                      className="h-[56px] w-full rounded-xl border border-white/[0.14] bg-white/[0.075] pl-12 pr-4 text-[15px] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] outline-none transition duration-200 placeholder:text-slate-400/90 hover:border-white/25 hover:bg-white/[0.09] focus:border-[#62B4FF]/70 focus:bg-white/[0.10] focus:ring-4 focus:ring-[#1684D8]/15"
+                      className="h-[56px] w-full rounded-xl border border-white/[0.18] bg-white/[0.095] backdrop-blur-xl pl-12 pr-4 text-[15px] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] outline-none transition duration-200 placeholder:text-slate-400/90 hover:border-white/30 hover:bg-white/[0.12] focus:border-[#74C2FF]/80 focus:bg-white/[0.13] focus:ring-4 focus:ring-[#1684D8]/15"
                     />
                   </div>
                 </div>
@@ -131,7 +132,7 @@ function Login({ onLogin }) {
                       type={showPassword ? "text" : "password"}
                       autoComplete="current-password"
                       placeholder="Enter your password"
-                      className="h-[56px] w-full rounded-xl border border-white/[0.14] bg-white/[0.075] pl-12 pr-12 text-[15px] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] outline-none transition duration-200 placeholder:text-slate-400/90 hover:border-white/25 hover:bg-white/[0.09] focus:border-[#62B4FF]/70 focus:bg-white/[0.10] focus:ring-4 focus:ring-[#1684D8]/15"
+                      className="h-[56px] w-full rounded-xl border border-white/[0.18] bg-white/[0.095] backdrop-blur-xl pl-12 pr-12 text-[15px] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] outline-none transition duration-200 placeholder:text-slate-400/90 hover:border-white/30 hover:bg-white/[0.12] focus:border-[#74C2FF]/80 focus:bg-white/[0.13] focus:ring-4 focus:ring-[#1684D8]/15"
                     />
                     <button
                       type="button"
