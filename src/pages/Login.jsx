@@ -27,13 +27,11 @@ function Login({ onLogin }) {
 
         <div className="relative z-10 w-full max-w-[800px] px-14 xl:px-20 2xl:px-24 text-white">
           <div className="mb-12">
-            <div className="inline-flex max-w-[570px] items-center rounded-2xl border border-white/30 bg-white/94 px-5 py-3 shadow-2xl shadow-slate-950/20 backdrop-blur-sm">
-              <img
-                src="/gsis-new-logo.png.png"
-                alt="GSIS Government Service Insurance System"
-                className="h-[74px] w-auto max-w-full object-contain"
-              />
-            </div>
+            <img
+              src="/gsis-new-logo.png"
+              alt="GSIS Government Service Insurance System"
+              className="h-[92px] w-auto max-w-[600px] object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.18)]"
+            />
             <div className="mt-5 border-l-4 border-[#F2BC19] pl-4">
               <p className="text-[13px] font-bold uppercase tracking-[0.22em] text-white/80">Internal Records Workspace</p>
               <h1 className="mt-1 text-[30px] font-bold leading-tight tracking-tight text-white xl:text-[34px]">
@@ -74,9 +72,11 @@ function Login({ onLogin }) {
 
         <div className="relative z-10 w-full max-w-[480px]">
           <div className="mb-10 text-center lg:hidden">
-            <div className="mx-auto flex max-w-[330px] items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-              <img src="/gsis-new-logo.png.png" alt="GSIS Government Service Insurance System" className="h-16 w-auto max-w-full object-contain" />
-            </div>
+            <img
+              src="/gsis-new-logo.png"
+              alt="GSIS Government Service Insurance System"
+              className="mx-auto h-16 w-auto max-w-[330px] object-contain"
+            />
             <h1 className="mt-4 text-2xl font-bold text-[#08689F]">Record Retrieval System</h1>
           </div>
 
