@@ -33,7 +33,7 @@ const activities = [
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, active: true },
-  { label: "Search Records", icon: Search },
+  { label: "Search Records", icon: Search, page: "search" },
   { label: "Records", icon: Archive },
   { label: "Retrieve", icon: FileArchive },
   { label: "Returns", icon: RotateCcw },
@@ -54,7 +54,7 @@ function StatusBadge({ status }) {
   );
 }
 
-function Dashboard({ onLogout }) {
+function Dashboard({ onLogout, onNavigate }) {
   return (
     <div className="min-h-screen bg-[#F3F5F7] text-[#243746]">
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-[#075A89] text-white lg:flex">
@@ -74,6 +74,7 @@ function Dashboard({ onLogout }) {
             {navItems.map(({ label, icon: Icon, active }) => (
               <button
                 key={label}
+                onClick={() => page && onNavigate(page)}
                 className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition ${active ? "bg-white text-[#08689F] shadow-sm" : "text-blue-50 hover:bg-white/10"}`}
               >
                 <Icon size={18} />
