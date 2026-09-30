@@ -8,6 +8,9 @@ import Records from "./pages/Records";
 import AddRecord from "./pages/AddRecord";
 import RetrieveRecord from "./pages/RetrieveRecord";
 import Returns from "./pages/Returns";
+import HistoryPage from "./pages/HistoryPage";
+import UserManagement from "./pages/UserManagement";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -37,6 +40,12 @@ function App() {
     content = <RetrieveRecord />;
   } else if (page === "returns") {
     content = <Returns />;
+  } else if (page === "history") {
+    content = <HistoryPage />;
+  } else if (page === "users") {
+    content = <UserManagement />;
+  } else if (page === "settings") {
+    content = <SettingsPage />;
   } else {
     content = <Dashboard onLogout={handleLogout} onNavigate={setPage} embedded />;
   }
