@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Eye, EyeOff, LockKeyhole, UserRound } from "lucide-react";
 
-function Login() {
+function Login({ onLogin }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    onLogin();
   };
 
   return (
