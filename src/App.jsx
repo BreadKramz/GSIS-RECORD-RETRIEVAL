@@ -6,6 +6,7 @@ import RecordDetails from "./pages/RecordDetails";
 import AppSidebar from "./components/AppSidebar";
 import Records from "./pages/Records";
 import AddRecord from "./pages/AddRecord";
+import RetrieveRecord from "./pages/RetrieveRecord";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -31,6 +32,8 @@ function App() {
     content = <Records onNavigate={setPage} />;
   } else if (page === "add-record") {
     content = <AddRecord onBack={() => setPage("records")} />;
+  } else if (page === "retrieve") {
+    content = <RetrieveRecord />;
   } else {
     content = <Dashboard onLogout={handleLogout} onNavigate={setPage} embedded />;
   }
