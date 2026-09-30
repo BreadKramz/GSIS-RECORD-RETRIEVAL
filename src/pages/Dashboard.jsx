@@ -18,10 +18,10 @@ import {
 } from "lucide-react";
 
 const stats = [
-  { label: "Total Records", value: "1,250", detail: "All registered files", icon: Files, accent: "#0067A8" },
-  { label: "Available", value: "1,180", detail: "Ready for retrieval", icon: FileCheck2, accent: "#72B844" },
-  { label: "Retrieved", value: "54", detail: "Currently out", icon: FileArchive, accent: "#0067A8" },
-  { label: "Pending Return", value: "16", detail: "Awaiting return", icon: Clock3, accent: "#F5C518" },
+  { label: "Total Records", value: "1,250", detail: "All registered files", icon: Files, accent: "#1686C9" },
+  { label: "Available", value: "1,180", detail: "Ready for retrieval", icon: FileCheck2, accent: "#10A64A" },
+  { label: "Retrieved", value: "54", detail: "Currently out", icon: FileArchive, accent: "#1686C9" },
+  { label: "Pending Return", value: "16", detail: "Awaiting return", icon: Clock3, accent: "#FFD51F" },
 ];
 
 const activities = [
@@ -42,9 +42,9 @@ const navItems = [
 
 function StatusBadge({ status }) {
   const styles = {
-    Retrieved: "bg-[#0067A8]/10 text-[#0067A8]",
-    Returned: "bg-[#72B844]/15 text-[#4e8d2d]",
-    Forwarded: "bg-[#F5C518]/20 text-[#8a6a00]",
+    Retrieved: "bg-[#1686C9]/10 text-[#1686C9]",
+    Returned: "bg-[#10A64A]/15 text-[#4e8d2d]",
+    Forwarded: "bg-[#FFD51F]/20 text-[#8a6a00]",
   };
 
   return (
@@ -56,8 +56,8 @@ function StatusBadge({ status }) {
 
 function Dashboard({ onLogout }) {
   return (
-    <div className="min-h-screen bg-[#F4F7FA] text-[#16324F]">
-      <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-[#0067A8] text-white lg:flex">
+    <div className="min-h-screen bg-[#F4F9FC] text-[#263746]">
+      <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-[#1686C9] text-white lg:flex">
         <div className="flex h-20 items-center gap-3 border-b border-white/15 px-6">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white">
             <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-9 w-9 object-contain" />
@@ -74,7 +74,7 @@ function Dashboard({ onLogout }) {
             {navItems.map(({ label, icon: Icon, active }) => (
               <button
                 key={label}
-                className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition ${active ? "bg-white text-[#0067A8] shadow-sm" : "text-blue-50 hover:bg-white/10"}`}
+                className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition ${active ? "bg-white text-[#1686C9] shadow-sm" : "text-blue-50 hover:bg-white/10"}`}
               >
                 <Icon size={18} />
                 {label}
@@ -96,7 +96,7 @@ function Dashboard({ onLogout }) {
 
         <div className="border-t border-white/15 p-4">
           <div className="mb-3 flex items-center gap-3 rounded-lg bg-white/10 p-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#72B844] font-bold">A</div>
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#10A64A] font-bold">A</div>
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold">Administrator</p>
               <p className="text-xs text-blue-200">Admin account</p>
@@ -109,13 +109,13 @@ function Dashboard({ onLogout }) {
             <LogOut size={17} /> Sign out
           </button>
         </div>
-        <div className="h-1.5 bg-gradient-to-r from-[#72B844] via-[#F5C518] to-[#72B844]" />
+        <div className="h-1.5 bg-gradient-to-r from-[#10A64A] via-[#FFD51F] to-[#10A64A]" />
       </aside>
 
       <div className="lg:pl-64">
         <header className="sticky top-0 z-20 flex h-20 items-center justify-between border-b border-slate-200 bg-white/95 px-5 backdrop-blur md:px-8">
           <div className="flex items-center gap-3">
-            <button className="rounded-lg p-2 text-[#0067A8] hover:bg-slate-100 lg:hidden"><Menu size={22} /></button>
+            <button className="rounded-lg p-2 text-[#1686C9] hover:bg-slate-100 lg:hidden"><Menu size={22} /></button>
             <div>
               <h1 className="text-xl font-bold md:text-2xl">Dashboard</h1>
               <p className="hidden text-sm text-gray-500 sm:block">Record Retrieval System overview</p>
@@ -124,10 +124,10 @@ function Dashboard({ onLogout }) {
           <div className="flex items-center gap-3">
             <button className="relative rounded-full border border-slate-200 p-2.5 text-gray-500 hover:bg-slate-50">
               <Bell size={19} />
-              <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#F5C518]" />
+              <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#FFD51F]" />
             </button>
             <div className="hidden items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 sm:flex">
-              <ShieldCheck size={18} className="text-[#72B844]" />
+              <ShieldCheck size={18} className="text-[#10A64A]" />
               <span className="text-sm font-semibold">Admin</span>
             </div>
           </div>
@@ -156,12 +156,12 @@ function Dashboard({ onLogout }) {
             ))}
           </section>
 
-          <section className="mt-6 rounded-2xl bg-[#0067A8] p-6 text-white shadow-sm">
+          <section className="mt-6 rounded-2xl border border-[#1686C9]/15 bg-[#EAF5FB] p-6 shadow-sm">
             <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-200">Quick Search</p>
-                <h3 className="mt-1 text-xl font-bold">Find a record instantly</h3>
-                <p className="mt-1 text-sm text-blue-100">Search by member name, record number, or file reference.</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#1686C9]">Quick Search</p>
+                <h3 className="mt-1 text-xl font-bold text-[#263746]">Find a record instantly</h3>
+                <p className="mt-1 text-sm text-[#687782]">Search by member name, record number, or file reference.</p>
               </div>
               <div className="flex w-full max-w-2xl overflow-hidden rounded-xl bg-white shadow-sm">
                 <div className="flex flex-1 items-center">
@@ -169,10 +169,10 @@ function Dashboard({ onLogout }) {
                   <input
                     type="search"
                     placeholder="Search member name or record number..."
-                    className="h-13 w-full bg-transparent px-3 text-sm text-[#16324F] outline-none"
+                    className="h-13 w-full bg-transparent px-3 text-sm text-[#263746] outline-none"
                   />
                 </div>
-                <button className="m-1.5 rounded-lg bg-[#72B844] px-5 text-sm font-semibold text-white hover:bg-[#63a43a]">Search</button>
+                <button className="m-1.5 rounded-lg bg-[#1686C9] px-5 text-sm font-semibold text-white hover:bg-[#126FA8]">Search</button>
               </div>
             </div>
           </section>
@@ -184,7 +184,7 @@ function Dashboard({ onLogout }) {
                   <h3 className="font-bold">Recent File Activity</h3>
                   <p className="mt-0.5 text-xs text-gray-400">Latest retrieval, return, and forwarding transactions</p>
                 </div>
-                <button className="flex items-center gap-1 text-sm font-semibold text-[#0067A8]">View all <ChevronRight size={16} /></button>
+                <button className="flex items-center gap-1 text-sm font-semibold text-[#1686C9]">View all <ChevronRight size={16} /></button>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[680px] text-left">
@@ -220,10 +220,10 @@ function Dashboard({ onLogout }) {
               <p className="mt-1 text-xs text-gray-400">Current prototype categories</p>
               <div className="mt-5 space-y-3">
                 {[
-                  ["Policy Envelopes", "540", "#0067A8"],
-                  ["Active Files", "402", "#72B844"],
+                  ["Policy Envelopes", "540", "#1686C9"],
+                  ["Active Files", "402", "#10A64A"],
                   ["Inactive Files", "196", "#7C8796"],
-                  ["Retirement", "112", "#F5C518"],
+                  ["Retirement", "112", "#FFD51F"],
                 ].map(([label, count, color]) => (
                   <button key={label} className="flex w-full items-center justify-between rounded-xl border border-slate-100 p-3 text-left hover:bg-slate-50">
                     <div className="flex items-center gap-3">
@@ -234,7 +234,7 @@ function Dashboard({ onLogout }) {
                   </button>
                 ))}
               </div>
-              <div className="mt-6 rounded-xl bg-[#F4F7FA] p-4">
+              <div className="mt-6 rounded-xl bg-[#F4F9FC] p-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Prototype note</p>
                 <p className="mt-2 text-sm leading-relaxed text-gray-600">Counts and activities are sample data for layout review and will be replaced by database records.</p>
               </div>
