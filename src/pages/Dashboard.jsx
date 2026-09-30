@@ -54,7 +54,7 @@ function StatusBadge({ status }) {
   );
 }
 
-function Dashboard() {
+function Dashboard({ onLogout }) {
   return (
     <div className="min-h-screen bg-[#F4F7FA] text-[#16324F]">
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-[#0067A8] text-white lg:flex">
@@ -102,7 +102,10 @@ function Dashboard() {
               <p className="text-xs text-blue-200">Admin account</p>
             </div>
           </div>
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-blue-100 hover:bg-white/10">
+          <button
+            onClick={onLogout}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-blue-100 hover:bg-white/10"
+          >
             <LogOut size={17} /> Sign out
           </button>
         </div>
