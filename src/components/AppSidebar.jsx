@@ -14,12 +14,9 @@ const navItems = [
 function AppSidebar({ currentPage, onNavigate, onLogout }) {
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col bg-[#075A89] text-white lg:flex">
-      <div className="flex h-20 items-center gap-3 border-b border-white/15 px-6">
-        <div className="flex h-11 w-11 items-center justify-center rounded-md bg-white">
-          <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-9 w-9 object-contain" />
-        </div>
-        <div><p className="text-lg font-bold leading-tight">GSIS</p><p className="text-xs text-blue-100">Record Retrieval</p></div>
-      </div>
+      <button onClick={() => onNavigate("dashboard")} className="flex h-20 w-full items-center border-b border-white/15 bg-white px-4 text-left">
+        <img src="/rrs-logo.png" alt="RRS Logo" className="h-14 w-full object-contain object-left" />
+      </button>
       <nav className="flex-1 px-3 py-6">
         <p className="px-3 pb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-200">Workspace</p>
         <div className="space-y-1">
