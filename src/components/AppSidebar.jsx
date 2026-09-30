@@ -16,13 +16,22 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col bg-[#075A89] text-white lg:flex">
       <button
         onClick={() => onNavigate("dashboard")}
-        className="flex h-28 w-full items-center border-b border-white/15 px-4 transition hover:bg-white/5"
+        className="group flex h-24 w-full items-center gap-3 border-b border-white/15 px-5 text-left transition hover:bg-white/5"
       >
-        <img
-          src="/gsis-new-logo.png.png"
-          alt="GSIS Government Service Insurance System"
-          className="h-[92px] w-full object-contain"
-        />
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-white p-1.5 shadow-sm ring-1 ring-black/5">
+          <img
+            src="/gsis-logo.svg"
+            alt="GSIS"
+            className="h-full w-full object-contain"
+          />
+        </div>
+        <div className="min-w-0">
+          <p className="text-xl font-bold leading-none tracking-wide text-white">GSIS</p>
+          <p className="mt-1.5 text-[10px] font-semibold uppercase leading-[1.35] tracking-[0.09em] text-blue-100">
+            Record Retrieval
+            <span className="block">System</span>
+          </p>
+        </div>
       </button>
       <nav className="flex-1 px-3 py-6">
         <p className="px-3 pb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-200">Workspace</p>
