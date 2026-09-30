@@ -13,12 +13,15 @@ function Login({ onLogin }) {
     <main className="min-h-screen bg-[#F3F5F7] flex">
       <section className="hidden lg:flex lg:w-[52%] bg-[#075A89] relative overflow-hidden items-center justify-center">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: "url('/gsis-building-bg.svg')" }}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('https://i0.wp.com/www.theurbanroamer.com/wp-content/uploads/2013/10/pa120094.jpg')" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#075A89]/95 via-[#075A89]/82 to-[#075A89]/68" />
+        <div className="absolute inset-0 bg-[#075A89]/72" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#064F79]/95 via-[#075A89]/78 to-[#075A89]/52" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#064F79]/70 via-transparent to-[#075A89]/20" />
         <div className="absolute inset-x-0 top-0 h-1 bg-[#4F8F3A]" />
         <div className="absolute bottom-0 left-0 h-1 w-1/3 bg-[#D9A928]" />
+        <p className="absolute bottom-5 right-6 z-10 text-[10px] text-white/45">Background: GSIS Financial Center exterior</p>
 
         <div className="relative z-10 max-w-xl px-12 text-white">
           <div className="flex items-center gap-4 mb-12">
