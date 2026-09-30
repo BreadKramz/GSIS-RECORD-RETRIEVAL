@@ -10,15 +10,14 @@ function Login({ onLogin }) {
   };
 
   return (
-    <main className="min-h-screen bg-[#F4F9FC] flex">
-      <section className="hidden lg:flex lg:w-[55%] bg-[#1686C9] relative overflow-hidden items-center justify-center">
-        <div className="absolute w-[520px] h-[520px] bg-[#10A64A]/20 rounded-full -top-44 -left-44" />
-        <div className="absolute w-[460px] h-[460px] bg-[#FFD51F]/15 rounded-full -bottom-52 -right-24" />
-        <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-[#10A64A] via-[#FFD51F] to-[#10A64A]" />
+    <main className="min-h-screen bg-[#F3F5F7] flex">
+      <section className="hidden lg:flex lg:w-[52%] bg-[#075A89] relative overflow-hidden items-center justify-center">
+        <div className="absolute inset-x-0 top-0 h-1 bg-[#4F8F3A]" />
+        <div className="absolute bottom-0 left-0 h-1 w-1/3 bg-[#D9A928]" />
 
         <div className="relative z-10 max-w-xl px-12 text-white">
           <div className="flex items-center gap-4 mb-12">
-            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center shadow-lg">
               <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-14 w-14 object-contain" />
             </div>
             <div>
@@ -50,17 +49,17 @@ function Login({ onLogin }) {
       <section className="flex-1 flex items-center justify-center px-6 py-10">
         <div className="w-full max-w-md">
           <div className="lg:hidden mb-10 text-center">
-            <div className="w-14 h-14 mx-auto mb-3 bg-[#1686C9] rounded-xl flex items-center justify-center">
+            <div className="w-14 h-14 mx-auto mb-3 bg-[#08689F] rounded-xl flex items-center justify-center">
               <img src="/gsis-logo.svg" alt="GSIS Logo" className="h-12 w-12 object-contain" />
             </div>
-            <h1 className="text-2xl font-bold text-[#1686C9]">GSIS Record Retrieval</h1>
+            <h1 className="text-2xl font-bold text-[#08689F]">GSIS Record Retrieval</h1>
           </div>
 
           <div className="mb-9">
-            <p className="text-sm font-semibold text-[#10A64A] uppercase tracking-[0.18em] mb-2">
+            <p className="text-sm font-semibold text-[#08689F] uppercase tracking-[0.18em] mb-2">
               Authorized Access
             </p>
-            <h2 className="text-3xl font-bold text-[#263746]">Welcome back</h2>
+            <h2 className="text-3xl font-bold text-[#243746]">Welcome back</h2>
             <p className="text-gray-500 mt-2">Sign in to access the Record Retrieval System.</p>
           </div>
 
@@ -76,7 +75,7 @@ function Login({ onLogin }) {
                   type="text"
                   autoComplete="username"
                   placeholder="Enter your username"
-                  className="w-full h-12 pl-12 pr-4 bg-white border border-gray-300 rounded-lg outline-none transition focus:border-[#1686C9] focus:ring-2 focus:ring-[#1686C9]/10"
+                  className="w-full h-12 pl-12 pr-4 bg-white border border-gray-300 rounded-lg outline-none transition focus:border-[#08689F] focus:ring-2 focus:ring-[#08689F]/10"
                 />
               </div>
             </div>
@@ -92,7 +91,7 @@ function Login({ onLogin }) {
                   type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
                   placeholder="Enter your password"
-                  className="w-full h-12 pl-12 pr-12 bg-white border border-gray-300 rounded-lg outline-none transition focus:border-[#1686C9] focus:ring-2 focus:ring-[#1686C9]/10"
+                  className="w-full h-12 pl-12 pr-12 bg-white border border-gray-300 rounded-lg outline-none transition focus:border-[#08689F] focus:ring-2 focus:ring-[#08689F]/10"
                 />
                 <button
                   type="button"
@@ -107,7 +106,7 @@ function Login({ onLogin }) {
 
             <button
               type="submit"
-              className="w-full h-12 bg-[#1686C9] hover:bg-[#126FA8] active:bg-[#105F91] text-white font-semibold rounded-lg transition-colors cursor-pointer shadow-sm"
+              className="w-full h-12 bg-[#08689F] hover:bg-[#075A89] active:bg-[#064B73] text-white font-semibold rounded-lg transition-colors cursor-pointer shadow-sm"
             >
               Sign In
             </button>
