@@ -30,11 +30,21 @@ function Login({ onLogin }) {
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <header className="flex h-20 items-center justify-between px-6 sm:px-9 lg:h-24 lg:px-14 xl:px-20 2xl:px-24">
-          <img
-            src="/gsis-new-logo.png"
-            alt="GSIS Government Service Insurance System"
-            className="w-[230px] object-contain brightness-[0.9] contrast-[1.08] drop-shadow-[0_8px_22px_rgba(0,0,0,0.32)] sm:w-[270px] lg:w-[310px]"
-          />
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white p-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.20)] ring-1 ring-black/5 lg:h-14 lg:w-14">
+              <img
+                src="/gsis-logo.svg"
+                alt="GSIS"
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <div className="leading-none">
+              <p className="text-[22px] font-bold tracking-[0.04em] text-white lg:text-[25px]">GSIS</p>
+              <p className="mt-1.5 hidden text-[9px] font-medium uppercase tracking-[0.12em] text-white/55 sm:block">
+                Government Service Insurance System
+              </p>
+            </div>
+          </div>
           <div className="hidden items-center gap-2 text-[11px] font-medium uppercase tracking-[0.14em] text-white/55 md:flex">
             <ShieldCheck size={14} className="text-[#75BFFF]" />
             Internal System
@@ -43,7 +53,7 @@ function Login({ onLogin }) {
 
         <div className="mx-auto grid w-full max-w-[1720px] flex-1 items-center gap-12 px-6 pb-16 pt-4 sm:px-9 lg:grid-cols-[minmax(0,1fr)_430px] lg:px-14 lg:pb-20 lg:pt-0 xl:grid-cols-[minmax(0,1fr)_450px] xl:gap-20 xl:px-20 2xl:px-24">
           <section className="hidden max-w-[760px] lg:block">
-            <div className="mb-6 inline-flex items-center rounded-full border border-white/15 bg-black/15 px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-200 backdrop-blur-md">
+            <div className="mb-6 inline-flex items-center border-l-2 border-[#5DB4EF] pl-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-200/85">
               GSIS Dumaguete Branch
             </div>
 
@@ -63,8 +73,8 @@ function Login({ onLogin }) {
           </section>
 
           <section className="mx-auto w-full max-w-[450px] lg:mx-0 lg:justify-self-end">
-            <div className="overflow-hidden rounded-[22px] border border-white/[0.18] bg-[#071a29]/78 shadow-[0_28px_80px_rgba(0,0,0,0.46)] backdrop-blur-2xl">
-              <div className="h-1 w-full bg-gradient-to-r from-[#0B73B4] via-[#1592DD] to-[#58A83C]" />
+            <div className="overflow-hidden rounded-2xl border border-white/[0.16] bg-[#071925]/88 shadow-[0_24px_70px_rgba(0,0,0,0.42)] backdrop-blur-xl">
+              <div className="h-[3px] w-full bg-[#0C79B8]" />
 
               <div className="px-7 py-8 sm:px-9 sm:py-9">
                 <div className="mb-8 lg:hidden">
@@ -77,7 +87,7 @@ function Login({ onLogin }) {
                 </div>
 
                 <div className="mb-8">
-                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-[#69B9F4]/20 bg-[#0D74B5]/12">
+                  <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.055]">
                     <LockKeyhole size={20} className="text-[#79C3F8]" />
                   </div>
                   <h2 className="text-[30px] font-semibold tracking-[-0.03em] text-white">
