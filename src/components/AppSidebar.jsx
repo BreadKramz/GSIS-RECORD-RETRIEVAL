@@ -39,8 +39,8 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
         onClick={() => onNavigate(item.page)}
         className={`relative flex h-11 w-full items-center gap-3 rounded-lg px-3 text-left text-[13px] font-medium transition-all duration-150 ${
           active
-            ? "bg-white text-[#075F91] shadow-[0_5px_14px_rgba(2,48,76,.14)]"
-            : "text-blue-50/85 hover:bg-white/10 hover:text-white"
+            ? "bg-white text-[#075F91] shadow-sm"
+            : "text-blue-50/80 hover:bg-white/[0.08] hover:text-white"
         }`}
       >
         {active && <span className="absolute -left-0.5 h-5 w-[3px] rounded-full bg-[#0782B9]" />}
@@ -51,16 +51,16 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
   };
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col overflow-hidden border-r border-white/10 bg-gradient-to-b from-[#075F91] via-[#086E9C] to-[#064C72] text-white shadow-[6px_0_24px_rgba(20,62,84,.12)] lg:flex">
+    <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col overflow-hidden border-r border-white/10 bg-[#075F91] text-white shadow-[4px_0_18px_rgba(20,62,84,.10)] lg:flex">
       <button
         onClick={() => onNavigate("dashboard")}
-        className="flex h-[94px] shrink-0 items-center gap-3 border-b border-white/10 bg-[#064F79]/45 px-5 text-left transition hover:bg-white/[0.04]"
+        className="flex h-[94px] shrink-0 items-center gap-3 border-b border-white/10 bg-[#075784] px-5 text-left transition hover:bg-white/[0.04]"
       >
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/25 bg-white p-1 shadow-md">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white p-1 shadow-sm">
           <img src="/gsis-logo.svg" alt="GSIS" className="h-full w-full object-contain" />
         </div>
         <div className="min-w-0">
-          <p className="text-[20px] font-extrabold leading-none tracking-[0.08em] text-white">GSIS</p>
+          <p className="text-[19px] font-bold leading-none tracking-[0.08em] text-white">GSIS</p>
           <p className="mt-1.5 text-[9px] font-bold uppercase leading-[1.4] tracking-[0.11em] text-blue-100/75">
             Record Retrieval System
           </p>
@@ -86,9 +86,9 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
         </div>
       </nav>
 
-      <div className="shrink-0 border-t border-white/10 bg-[#05476C]/45 p-3">
+      <div className="shrink-0 border-t border-white/10 bg-[#065681] p-3">
         <div className="flex items-center gap-3 rounded-lg px-2 py-2">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#075F91] text-xs font-bold text-white">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/10 text-xs font-semibold text-white">
             A
           </div>
           <div className="min-w-0 flex-1">
@@ -108,7 +108,7 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
         </button>
       </div>
 
-      <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-[#087DB4] via-[#4F963C] to-[#D8AC29]" />
+      <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-[#6CB33F] via-[#F2C230] to-[#6CB33F]" />
     </aside>
   );
 }
