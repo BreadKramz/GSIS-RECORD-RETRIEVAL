@@ -12,12 +12,12 @@ function Login({ onLogin }) {
   return (
     <main className="relative h-screen max-h-screen w-screen overflow-hidden bg-[#061522] font-sans text-white">
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/gsis-building.bg.png')" }}
+        className="absolute inset-0 bg-cover bg-[center_58%] bg-no-repeat"
+        style={{ backgroundImage: "url('/gsis-login-background.png')" }}
       />
-      <div className="absolute inset-0 bg-[#04131e]/25" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#03131f]/68 via-[#03131f]/18 to-[#03131f]/42" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#020d16]/48 via-transparent to-[#03131f]/20" />
+      <div className="absolute inset-0 bg-[#03131f]/10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#03131f]/58 via-[#03131f]/8 to-[#03131f]/34" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#020d16]/32 via-transparent to-[#03131f]/10" />
 
       <div className="relative z-10 mx-auto grid h-full w-full max-w-[1600px] grid-cols-1 items-center px-8 lg:grid-cols-[1fr_410px] lg:gap-16 lg:px-12 xl:grid-cols-[1fr_430px] xl:px-16">
         <section className="hidden self-center lg:block">
