@@ -28,27 +28,27 @@ const categories = [
 
 function Dashboard({ onNavigate }) {
   return (
-    <div className="min-h-screen bg-[#F4F6F8] text-[#203442]">
-      <header className="sticky top-0 z-20 border-b border-slate-200/90 bg-white/95 backdrop-blur">
+    <div className="min-h-screen bg-[#EAF1F5] text-[#17384B]">
+      <header className="sticky top-0 z-20 border-b border-[#0B6C9F]/15 bg-gradient-to-r from-[#064E78] via-[#08689F] to-[#0A7A82] text-white shadow-[0_3px_16px_rgba(6,78,120,.18)]">
         <div className="flex h-[76px] items-center justify-between px-6 md:px-8 xl:px-10">
           <div>
             <h1 className="text-xl font-bold tracking-[-0.02em] md:text-2xl">Dashboard</h1>
-            <p className="mt-0.5 text-xs text-slate-500">GSIS Dumaguete · Record Retrieval System</p>
+            <p className="mt-0.5 text-xs text-blue-100/80">GSIS Dumaguete · Record Retrieval System</p>
           </div>
           <div className="flex items-center gap-3">
-            <button className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-50">
+            <button className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white transition hover:bg-white/20">
               <Bell size={18} />
             </button>
-            <div className="hidden h-10 items-center gap-2.5 rounded-lg border border-slate-200 bg-white px-3 sm:flex">
-              <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#08689F]/10 text-[#08689F]"><ShieldCheck size={16}/></span>
-              <div className="leading-tight"><p className="text-xs font-semibold">Administrator</p><p className="text-[10px] text-slate-400">Full access</p></div>
+            <div className="hidden h-10 items-center gap-2.5 rounded-lg border border-white/20 bg-white/10 px-3 sm:flex">
+              <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white/15 text-white"><ShieldCheck size={16}/></span>
+              <div className="leading-tight"><p className="text-xs font-semibold">Administrator</p><p className="text-[10px] text-blue-100/70">Full access</p></div>
             </div>
           </div>
         </div>
       </header>
 
       <main className="mx-auto max-w-[1600px] p-6 md:p-8 xl:p-10">
-        <section className="mb-7 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+        <section className="mb-7 flex flex-col justify-between gap-4 rounded-2xl border border-white/70 bg-white/70 p-6 shadow-[0_8px_30px_rgba(22,73,98,.08)] backdrop-blur-sm lg:flex-row lg:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#08689F]">Records overview</p>
             <h2 className="mt-1.5 text-2xl font-bold tracking-[-0.025em] md:text-[28px]">Good day, Administrator</h2>
@@ -61,7 +61,7 @@ function Dashboard({ onNavigate }) {
 
         <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {stats.map(({ label, value, detail, icon: Icon, tone }) => (
-            <article key={label} className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,.04)]">
+            <article key={label} className="rounded-2xl border border-[#D8E4EA] bg-white p-5 shadow-[0_8px_24px_rgba(28,73,96,.06)]">
               <div className="flex items-start justify-between">
                 <div><p className="text-sm font-medium text-slate-500">{label}</p><p className="mt-2 text-[30px] font-bold leading-none tracking-[-0.03em]">{value}</p></div>
                 <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${tone}`}><Icon size={20}/></div>
@@ -71,7 +71,7 @@ function Dashboard({ onNavigate }) {
           ))}
         </section>
 
-        <section className="mt-5 rounded-xl border border-slate-200 bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,.04)] md:p-6">
+        <section className="mt-5 rounded-2xl border border-[#D8E4EA] bg-white p-5 shadow-[0_8px_24px_rgba(28,73,96,.06)] md:p-6">
           <div className="grid items-end gap-5 lg:grid-cols-[minmax(220px,.55fr)_1fr]">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#08689F]">Quick search</p>
@@ -87,7 +87,7 @@ function Dashboard({ onNavigate }) {
         </section>
 
         <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1fr)_330px]">
-          <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_1px_3px_rgba(15,23,42,.04)]">
+          <section className="overflow-hidden rounded-2xl border border-[#D8E4EA] bg-white shadow-[0_8px_24px_rgba(28,73,96,.06)]">
             <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4 md:px-6">
               <div><h3 className="font-bold">Recent File Activity</h3><p className="mt-0.5 text-xs text-slate-400">Latest retrieval and return transactions</p></div>
               <button onClick={() => onNavigate("history")} className="flex items-center gap-1 text-xs font-semibold text-[#08689F] hover:underline">View history <ChevronRight size={14}/></button>
@@ -99,7 +99,7 @@ function Dashboard({ onNavigate }) {
             </div>
           </section>
 
-          <aside className="rounded-xl border border-slate-200 bg-white shadow-[0_1px_3px_rgba(15,23,42,.04)]">
+          <aside className="rounded-2xl border border-[#D8E4EA] bg-white shadow-[0_8px_24px_rgba(28,73,96,.06)]">
             <div className="border-b border-slate-200 px-5 py-4"><h3 className="font-bold">Record Categories</h3><p className="mt-0.5 text-xs text-slate-400">Files by classification</p></div>
             <div className="p-3">
               {categories.map(([label,count,dot]) => (
@@ -112,16 +112,16 @@ function Dashboard({ onNavigate }) {
           </aside>
         </div>
 
-        <section className="mt-5 grid gap-3 sm:grid-cols-3">
-          <button onClick={() => onNavigate("retrieve")} className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 text-left transition hover:border-[#08689F]/30 hover:shadow-sm">
+        <section className="mt-5 grid gap-4 sm:grid-cols-3">
+          <button onClick={() => onNavigate("retrieve")} className="flex items-center gap-3 rounded-2xl border border-[#D8E4EA] bg-white p-4 text-left transition hover:-translate-y-0.5 hover:border-[#08689F]/30 hover:shadow-md">
             <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-[#08689F]"><FileArchive size={18}/></span>
             <div><p className="text-sm font-semibold">Retrieve Record</p><p className="text-xs text-slate-400">Release and track custody</p></div>
           </button>
-          <button onClick={() => onNavigate("returns")} className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 text-left transition hover:border-[#4F8F3A]/30 hover:shadow-sm">
+          <button onClick={() => onNavigate("returns")} className="flex items-center gap-3 rounded-2xl border border-[#D8E4EA] bg-white p-4 text-left transition hover:-translate-y-0.5 hover:border-[#4F8F3A]/30 hover:shadow-md">
             <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-green-50 text-[#4F8F3A]"><RotateCcw size={18}/></span>
             <div><p className="text-sm font-semibold">Return Record</p><p className="text-xs text-slate-400">Complete a file return</p></div>
           </button>
-          <button onClick={() => onNavigate("history")} className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 text-left transition hover:border-[#D9A928]/40 hover:shadow-sm">
+          <button onClick={() => onNavigate("history")} className="flex items-center gap-3 rounded-2xl border border-[#D8E4EA] bg-white p-4 text-left transition hover:-translate-y-0.5 hover:border-[#D9A928]/40 hover:shadow-md">
             <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 text-[#A47700]"><History size={18}/></span>
             <div><p className="text-sm font-semibold">Movement History</p><p className="text-xs text-slate-400">Review the audit trail</p></div>
           </button>
