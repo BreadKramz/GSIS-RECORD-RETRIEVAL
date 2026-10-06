@@ -12,21 +12,21 @@ import {
   History,
 } from "lucide-react";
 
-const stats = [
-  { label: "Total Records", value: "—", detail: "Registered physical files", icon: Files, tone: "bg-blue-50 text-[#08689F]" },
-  { label: "Available", value: "—", detail: "Ready for retrieval", icon: FileCheck2, tone: "bg-green-50 text-[#4F8F3A]" },
-  { label: "Retrieved", value: "—", detail: "Currently in custody", icon: FileArchive, tone: "bg-sky-50 text-[#0879BD]" },
-  { label: "Pending Return", value: "—", detail: "Awaiting return", icon: Clock3, tone: "bg-amber-50 text-[#A47700]" },
-];
+function Dashboard({ onNavigate, records, transactions }) {
+  const stats = [
+    { label: "Total Records", value: records.length, detail: "Registered physical files", icon: Files, tone: "bg-blue-50 text-[#08689F]" },
+    { label: "Available", value: records.filter(r => r.status === "Available").length, detail: "Ready for retrieval", icon: FileCheck2, tone: "bg-green-50 text-[#4F8F3A]" },
+    { label: "Retrieved", value: records.filter(r => r.status === "Retrieved").length, detail: "Currently in custody", icon: FileArchive, tone: "bg-sky-50 text-[#0879BD]" },
+    { label: "Pending Return", value: records.filter(r => r.status !== "Available").length, detail: "Awaiting return", icon: Clock3, tone: "bg-amber-50 text-[#A47700]" },
+  ];
+  const categories = [
+    ["Policy Envelopes", records.filter(r => r.category === "Policy Envelope").length, "bg-[#08689F]"],
+    ["Active Files", records.filter(r => r.category === "Active File").length, "bg-[#4F8F3A]"],
+    ["Inactive Files", records.filter(r => r.category === "Inactive File").length, "bg-slate-400"],
+    ["Retirement", records.filter(r => r.category === "Retirement").length, "bg-[#D9A928]"],
+  ];
+  const recentActivity = transactions.filter(t => t.action !== "Added").slice(0, 5);
 
-const categories = [
-  ["Policy Envelopes", "—", "bg-[#08689F]"],
-  ["Active Files", "—", "bg-[#4F8F3A]"],
-  ["Inactive Files", "—", "bg-slate-400"],
-  ["Retirement", "—", "bg-[#D9A928]"],
-];
-
-function Dashboard({ onNavigate }) {
   return (
     <div className="min-h-screen bg-[#EAF1F5] text-[#17384B]">
       <header className="sticky top-0 z-20 border-b border-[#0B6C9F]/15 bg-gradient-to-r from-[#064E78] via-[#08689F] to-[#0A7A82] text-white shadow-[0_3px_16px_rgba(6,78,120,.18)]">
@@ -92,11 +92,11 @@ function Dashboard({ onNavigate }) {
               <div><h3 className="font-bold">Recent File Activity</h3><p className="mt-0.5 text-xs text-slate-400">Latest retrieval and return transactions</p></div>
               <button onClick={() => onNavigate("history")} className="flex items-center gap-1 text-xs font-semibold text-[#08689F] hover:underline">View history <ChevronRight size={14}/></button>
             </div>
-            <div className="flex min-h-[245px] flex-col items-center justify-center px-6 py-10 text-center">
+            {recentActivity.length === 0 ? <div className="flex min-h-[245px] flex-col items-center justify-center px-6 py-10 text-center">
               <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-400"><History size={22}/></span>
               <p className="mt-4 text-sm font-semibold text-slate-600">No file activity yet</p>
-              <p className="mt-1 max-w-sm text-xs leading-5 text-slate-400">Retrievals, returns, and file transfers will appear here automatically once transactions are recorded.</p>
-            </div>
+              <p className="mt-1 max-w-sm text-xs leading-5 text-slate-400">Retrievals and returns will appear here automatically.</p>
+            </div> : <div className="divide-y divide-slate-100">{recentActivity.map(item => <div key={item.id} className="flex items-center justify-between gap-4 px-6 py-4"><div className="min-w-0"><p className="text-sm font-semibold">{item.memberName}</p><p className="mt-0.5 text-xs text-slate-400">{item.recordNo} · {item.from} → {item.to}</p></div><div className="shrink-0 text-right"><p className="text-xs font-semibold text-[#08689F]">{item.action}</p><p className="mt-1 text-[10px] text-slate-400">{item.timestamp}</p></div></div>)}</div>}
           </section>
 
           <aside className="rounded-2xl border border-[#D8E4EA] bg-white shadow-[0_8px_24px_rgba(28,73,96,.06)]">
