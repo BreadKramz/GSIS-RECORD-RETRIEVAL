@@ -100,7 +100,7 @@ function App() {
   } else if (page === "settings") {
     content = <SettingsPage />;
   } else {
-    content = <Dashboard onNavigate={setPage} records={records} transactions={transactions} />;
+    content = <Dashboard onNavigate={setPage} onOpenRecord={openRecord} records={records} transactions={transactions} />;
   }
 
   return <><AppSidebar currentPage={page} onNavigate={setPage} onLogout={handleLogout}/><div className="lg:pl-64">{content}</div></>;
