@@ -43,7 +43,7 @@ function App() {
 
   let content;
   if (page === "search") {
-    content = <SearchRecords onBack={() => setPage("dashboard")} onSelectRecord={openRecord} />;
+    content = <SearchRecords records={records} onBack={() => setPage("dashboard")} onSelectRecord={openRecord} />;
   } else if (page === "record" && selectedRecord) {
     content = <RecordDetails record={selectedRecord} onBack={() => setPage("records")} />;
   } else if (page === "records") {
