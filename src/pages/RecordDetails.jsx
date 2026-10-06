@@ -9,10 +9,8 @@ function Badge({ status }) {
   return <span className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${styles[status] || "border-slate-200 bg-slate-50 text-slate-600"}`}>{status}</span>;
 }
 
-function RecordDetails({ record, onBack }) {
-  const history = [
-    { action: record.status, location: record.location, person: record.custodian, time: record.lastUpdated },
-  ];
+function RecordDetails({ record, transactions, onBack, onNavigate }) {
+  const history = transactions.filter((item) => item.recordId === record.id);
 
   return (
     <div className="min-h-screen bg-[#F3F5F7] text-[#243746]">
@@ -35,9 +33,9 @@ function RecordDetails({ record, onBack }) {
             <p className="mt-1 font-mono text-sm text-slate-500">{record.recordNo}</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <button className="flex items-center gap-2 rounded-md bg-[#08689F] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#075A89]"><ArchiveRestore size={17}/>Retrieve</button>
-            <button className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"><ArrowRightLeft size={17}/>Forward</button>
-            <button className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"><RotateCcw size={17}/>Return</button>
+            <button disabled={record.status !== "Available"} onClick={() => onNavigate("retrieve")} className="flex items-center gap-2 rounded-md bg-[#08689F] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#075A89] disabled:cursor-not-allowed disabled:opacity-40"><ArchiveRestore size={17}/>Retrieve</button>
+            <button disabled className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-400 opacity-60"><ArrowRightLeft size={17}/>Forward</button>
+            <button disabled={record.status === "Available"} onClick={() => onNavigate("returns")} className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"><RotateCcw size={17}/>Return</button>
           </div>
         </div>
 
@@ -72,11 +70,10 @@ function RecordDetails({ record, onBack }) {
         <section className="mt-6 rounded-lg border border-slate-200 bg-white shadow-sm">
           <div className="border-b border-slate-200 px-6 py-4"><h3 className="font-bold">Movement History</h3><p className="mt-1 text-sm text-slate-500">Tracks where the physical file has been and who handled it.</p></div>
           <div className="p-6">
-            {history.map((item, i) => <div key={i} className="flex gap-4"><div className="flex flex-col items-center"><div className="h-3 w-3 rounded-full bg-[#08689F]"/><div className="mt-1 h-12 w-px bg-slate-200"/></div><div className="-mt-1"><p className="font-semibold">{item.action}</p><p className="mt-1 text-sm text-slate-500">{item.location} · {item.person}</p><p className="mt-1 text-xs text-slate-400">{item.time}</p></div></div>)}
+            {history.length === 0 ? <p className="text-sm text-slate-400">No movement history recorded for this file.</p> : history.map((item) => <div key={item.id} className="flex gap-4"><div className="flex flex-col items-center"><div className="h-3 w-3 rounded-full bg-[#08689F]"/><div className="mt-1 h-14 w-px bg-slate-200"/></div><div className="-mt-1 pb-4"><p className="font-semibold">{item.action}</p><p className="mt-1 text-sm text-slate-500">{item.from} → {item.to}{item.person ? ` · ${item.person}` : ""}</p>{item.remarks && <p className="mt-1 text-xs text-slate-500">{item.remarks}</p>}<p className="mt-1 text-xs text-slate-400">{item.timestamp}</p></div></div>)}
           </div>
         </section>
 
-        <p className="mt-4 text-xs text-slate-400">Prototype only. Retrieve, Forward, and Return actions will be saved when the backend is connected.</p>
       </main>
     </div>
   );
