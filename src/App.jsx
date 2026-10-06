@@ -17,6 +17,7 @@ function App() {
   const [page, setPage] = useState("dashboard");
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [records, setRecords] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
   const handleLogout = () => { setIsAuthenticated(false); setPage("dashboard"); setSelectedRecord(null); };
   const openRecord = (record) => { setSelectedRecord(record); setPage("record"); };
@@ -24,7 +25,7 @@ function App() {
     const recordNo = form.recordNo.trim().toUpperCase();
     if (records.some(r => r.recordNo.toUpperCase() === recordNo)) return { ok:false, message:"That record number is already registered." };
     const now = new Date();
-    setRecords(current => [{
+    const newRecord = {
       id: crypto.randomUUID(),
       recordNo,
       memberName: form.memberName.trim(),
@@ -35,7 +36,9 @@ function App() {
       remarks: form.remarks.trim(),
       dateAdded: now.toLocaleDateString(),
       lastUpdated: now.toLocaleString(),
-    }, ...current]);
+    };
+    setRecords(current => [newRecord, ...current]);
+    setTransactions(current => [{ id:crypto.randomUUID(), recordId:newRecord.id, recordNo, memberName:newRecord.memberName, action:"Added", from:"—", to:newRecord.location, person:"Administrator", remarks:newRecord.remarks, timestamp:newRecord.lastUpdated }, ...current]);
     return { ok:true };
   };
 
@@ -52,6 +55,7 @@ function App() {
       remarks: form.remarks.trim() || r.remarks,
       lastUpdated: now,
     } : r));
+    setTransactions(current => [{ id:crypto.randomUUID(), recordId, recordNo:record.recordNo, memberName:record.memberName, action:"Retrieved", from:record.location, to:form.destination.trim(), person:form.requestedBy.trim(), remarks:form.remarks.trim(), timestamp:now }, ...current]);
     setSelectedRecord(current => current?.id === recordId ? {
       ...current,
       status:"Retrieved",
@@ -59,6 +63,18 @@ function App() {
       custodian:form.requestedBy.trim(),
       lastUpdated:now,
     } : current);
+    return { ok:true };
+  };
+
+  const returnRecord = (recordId, form) => {
+    const record = records.find(r => r.id === recordId);
+    if (!record) return { ok:false, message:"Record not found." };
+    if (record.status === "Available") return { ok:false, message:"This record is already available." };
+    const now = new Date().toLocaleString();
+    const location = form.returnLocation.trim();
+    setRecords(current => current.map(r => r.id === recordId ? { ...r, status:"Available", location, custodian:form.receivedBy.trim(), lastUpdated:now } : r));
+    setTransactions(current => [{ id:crypto.randomUUID(), recordId, recordNo:record.recordNo, memberName:record.memberName, action:"Returned", from:record.location, to:location, person:form.returnedBy.trim(), remarks:form.remarks.trim(), timestamp:now }, ...current]);
+    setSelectedRecord(current => current?.id === recordId ? { ...current, status:"Available", location, custodian:form.receivedBy.trim(), lastUpdated:now } : current);
     return { ok:true };
   };
 
@@ -76,9 +92,9 @@ function App() {
   } else if (page === "retrieve") {
     content = <RetrieveRecord records={records} onRetrieve={retrieveRecord} />;
   } else if (page === "returns") {
-    content = <Returns />;
+    content = <Returns records={records} onReturn={returnRecord} />;
   } else if (page === "history") {
-    content = <HistoryPage />;
+    content = <HistoryPage transactions={transactions} />;
   } else if (page === "users") {
     content = <UserManagement />;
   } else if (page === "settings") {
