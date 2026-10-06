@@ -39,6 +39,29 @@ function App() {
     return { ok:true };
   };
 
+  const retrieveRecord = (recordId, form) => {
+    const record = records.find(r => r.id === recordId);
+    if (!record) return { ok:false, message:"Record not found." };
+    if (record.status !== "Available") return { ok:false, message:"Only available records can be retrieved." };
+    const now = new Date().toLocaleString();
+    setRecords(current => current.map(r => r.id === recordId ? {
+      ...r,
+      status: "Retrieved",
+      location: form.destination.trim(),
+      custodian: form.requestedBy.trim(),
+      remarks: form.remarks.trim() || r.remarks,
+      lastUpdated: now,
+    } : r));
+    setSelectedRecord(current => current?.id === recordId ? {
+      ...current,
+      status:"Retrieved",
+      location:form.destination.trim(),
+      custodian:form.requestedBy.trim(),
+      lastUpdated:now,
+    } : current);
+    return { ok:true };
+  };
+
   if (!isAuthenticated) return <Login onLogin={() => setIsAuthenticated(true)} />;
 
   let content;
@@ -51,7 +74,7 @@ function App() {
   } else if (page === "add-record") {
     content = <AddRecord onBack={() => setPage("records")} onAddRecord={addRecord} />;
   } else if (page === "retrieve") {
-    content = <RetrieveRecord />;
+    content = <RetrieveRecord records={records} onRetrieve={retrieveRecord} />;
   } else if (page === "returns") {
     content = <Returns />;
   } else if (page === "history") {
