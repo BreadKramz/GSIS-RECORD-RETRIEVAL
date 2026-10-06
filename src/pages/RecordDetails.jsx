@@ -11,7 +11,7 @@ function Badge({ status }) {
 
 function RecordDetails({ record, onBack }) {
   const history = [
-    { action: record.status, location: record.location, person: record.holder, time: record.updated },
+    { action: record.status, location: record.location, person: record.custodian, time: record.lastUpdated },
   ];
 
   return (
@@ -30,9 +30,9 @@ function RecordDetails({ record, onBack }) {
       <main className="mx-auto max-w-[1450px] p-5 md:p-8">
         <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[.16em] text-[#08689F]">{record.type}</p>
-            <h2 className="mt-1 text-3xl font-bold">{record.name}</h2>
-            <p className="mt-1 font-mono text-sm text-slate-500">{record.id}</p>
+            <p className="text-xs font-semibold uppercase tracking-[.16em] text-[#08689F]">{record.category}</p>
+            <h2 className="mt-1 text-3xl font-bold">{record.memberName}</h2>
+            <p className="mt-1 font-mono text-sm text-slate-500">{record.recordNo}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button className="flex items-center gap-2 rounded-md bg-[#08689F] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#075A89]"><ArchiveRestore size={17}/>Retrieve</button>
@@ -46,10 +46,10 @@ function RecordDetails({ record, onBack }) {
             <div className="border-b border-slate-200 px-6 py-4"><h3 className="font-bold">File Information</h3><p className="mt-1 text-sm text-slate-500">Current physical record information and custody.</p></div>
             <div className="grid gap-px bg-slate-200 sm:grid-cols-2">
               {[
-                ["Record Number", record.id, FileArchive],
-                ["Record Category", record.type, FileArchive],
+                ["Record Number", record.recordNo, FileArchive],
+                ["Record Category", record.category, FileArchive],
                 ["Current Location", record.location, MapPin],
-                ["Custodian / Requested By", record.holder, UserRound],
+                ["Custodian / Requested By", record.custodian, UserRound],
               ].map(([label,value,Icon]) => (
                 <div key={label} className="bg-white p-6"><div className="mb-3 flex h-9 w-9 items-center justify-center rounded-md bg-[#EDF3F7] text-[#08689F]"><Icon size={18}/></div><p className="text-xs font-semibold uppercase tracking-wide text-slate-400">{label}</p><p className="mt-1 font-semibold text-slate-700">{value}</p></div>
               ))}
@@ -62,8 +62,8 @@ function RecordDetails({ record, onBack }) {
               <Badge status={record.status}/>
               <div className="mt-4 space-y-3 text-sm">
                 <div className="flex gap-3"><MapPin size={17} className="mt-0.5 text-slate-400"/><div><p className="text-slate-400">Location</p><p className="font-semibold">{record.location}</p></div></div>
-                <div className="flex gap-3"><UserRound size={17} className="mt-0.5 text-slate-400"/><div><p className="text-slate-400">Held / requested by</p><p className="font-semibold">{record.holder}</p></div></div>
-                <div className="flex gap-3"><Clock3 size={17} className="mt-0.5 text-slate-400"/><div><p className="text-slate-400">Last updated</p><p className="font-semibold">{record.updated}</p></div></div>
+                <div className="flex gap-3"><UserRound size={17} className="mt-0.5 text-slate-400"/><div><p className="text-slate-400">Held / requested by</p><p className="font-semibold">{record.custodian}</p></div></div>
+                <div className="flex gap-3"><Clock3 size={17} className="mt-0.5 text-slate-400"/><div><p className="text-slate-400">Last updated</p><p className="font-semibold">{record.lastUpdated}</p></div></div>
               </div>
             </div>
           </section>
