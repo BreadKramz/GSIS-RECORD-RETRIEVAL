@@ -84,7 +84,7 @@ function App() {
   if (page === "search") {
     content = <SearchRecords records={records} onBack={() => setPage("dashboard")} onSelectRecord={openRecord} />;
   } else if (page === "record" && selectedRecord) {
-    content = <RecordDetails record={selectedRecord} onBack={() => setPage("records")} />;
+    content = <RecordDetails record={selectedRecord} transactions={transactions} onBack={() => setPage("records")} onNavigate={setPage} />;
   } else if (page === "records") {
     content = <Records records={records} onNavigate={setPage} onSelectRecord={openRecord} />;
   } else if (page === "add-record") {
@@ -100,7 +100,7 @@ function App() {
   } else if (page === "settings") {
     content = <SettingsPage />;
   } else {
-    content = <Dashboard onNavigate={setPage} />;
+    content = <Dashboard onNavigate={setPage} records={records} transactions={transactions} />;
   }
 
   return <><AppSidebar currentPage={page} onNavigate={setPage} onLogout={handleLogout}/><div className="lg:pl-64">{content}</div></>;
