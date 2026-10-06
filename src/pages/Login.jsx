@@ -18,7 +18,7 @@ function Login({ onLogin }) {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#04131f] font-sans text-white">
+    <main className="relative h-[100dvh] overflow-hidden bg-[#04131f] font-sans text-white">
       <div
         className="absolute inset-0 bg-cover bg-center lg:bg-[center_48%]"
         style={{ backgroundImage: "url('/gsis-building.bg.png')" }}
@@ -31,7 +31,7 @@ function Login({ onLogin }) {
       <div className="pointer-events-none absolute -bottom-24 -left-16 h-44 w-[58%] rotate-[4deg] rounded-[50%] border-[10px] border-[#26a55b]/75" />
       <div className="pointer-events-none absolute -bottom-28 -left-10 h-44 w-[54%] rotate-[4deg] rounded-[50%] border-[6px] border-[#f3c63b]/85" />
 
-      <div className="relative z-10 flex min-h-screen flex-col">
+      <div className="relative z-10 flex h-full min-h-0 flex-col">
         <header className="flex items-center justify-between px-6 py-6 sm:px-10 lg:px-14 xl:px-20">
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-white/60">
