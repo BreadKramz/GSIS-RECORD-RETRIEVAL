@@ -44,7 +44,7 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
         }`}
       >
         {active && <span className="absolute -left-0.5 h-5 w-[3px] rounded-full bg-[#0782B9]" />}
-        <Icon size={18} strokeWidth={active ? 2.2 : 1.8} className={active ? "text-[#0782B9]" : "text-[#718894]"} />
+        <Icon size={16} strokeWidth={active ? 2.2 : 1.8} className={active ? "text-[#0782B9]" : "text-[#718894]"} />
         <span className="flex-1">{item.label}</span>
       </button>
     );
@@ -68,17 +68,17 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
         </div>
       </button>
 
-      <nav className="min-h-0 flex-1 overflow-hidden px-3 py-4">
-        <p className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[#9AAAB2]">
+      <nav className="min-h-0 flex-1 overflow-hidden px-3 py-3">
+        <p className="mb-1.5 px-3 text-[8px] font-bold uppercase tracking-[0.18em] text-[#9AAAB2]">
           Workspace
         </p>
         <div className="space-y-0.5">
           {workspace.map((item) => <NavButton key={item.page} item={item} />)}
         </div>
 
-        <div className="mx-3 my-3 border-t border-[#E1E9ED]" />
+        <div className="mx-3 my-2 border-t border-[#E1E9ED]" />
 
-        <p className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[#9AAAB2]">
+        <p className="mb-1.5 px-3 text-[8px] font-bold uppercase tracking-[0.18em] text-[#9AAAB2]">
           Administration
         </p>
         <div className="space-y-0.5">
