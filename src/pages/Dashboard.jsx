@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Bell,
   ChevronRight,
@@ -12,7 +13,19 @@ import {
   History,
 } from "lucide-react";
 
-function Dashboard({ onNavigate, records, transactions }) {
+function Dashboard({ onNavigate, onOpenRecord, records, transactions }) {
+  const [quickQuery, setQuickQuery] = useState("");
+  const [searchError, setSearchError] = useState("");
+  const quickSearch = () => {
+    const q = quickQuery.trim().toLowerCase();
+    if (!q) return setSearchError("Enter a record number or member name.");
+    const exact = records.find(r => r.recordNo.toLowerCase() === q || r.memberName.toLowerCase() === q);
+    const partial = records.find(r => r.recordNo.toLowerCase().includes(q) || r.memberName.toLowerCase().includes(q));
+    const match = exact || partial;
+    if (!match) return setSearchError("No matching record found.");
+    setSearchError("");
+    onOpenRecord(match);
+  };
   const stats = [
     { label: "Total Records", value: records.length, detail: "Registered physical files", icon: Files, tone: "bg-blue-50 text-[#08689F]" },
     { label: "Available", value: records.filter(r => r.status === "Available").length, detail: "Ready for retrieval", icon: FileCheck2, tone: "bg-green-50 text-[#4F8F3A]" },
@@ -80,9 +93,10 @@ function Dashboard({ onNavigate, records, transactions }) {
             </div>
             <div className="flex h-12 overflow-hidden rounded-lg border border-slate-300 bg-white transition focus-within:border-[#08689F] focus-within:ring-2 focus-within:ring-[#08689F]/10">
               <Search className="ml-4 self-center text-slate-400" size={18}/>
-              <input type="search" placeholder="Enter member name or record number..." className="min-w-0 flex-1 px-3 text-sm outline-none placeholder:text-slate-400"/>
-              <button onClick={() => onNavigate("search")} className="m-1 rounded-md bg-[#08689F] px-5 text-sm font-semibold text-white transition hover:bg-[#075A89]">Search</button>
+              <input type="search" value={quickQuery} onChange={(e) => { setQuickQuery(e.target.value); setSearchError(""); }} onKeyDown={(e) => e.key === "Enter" && quickSearch()} placeholder="Enter member name or record number..." className="min-w-0 flex-1 px-3 text-sm outline-none placeholder:text-slate-400"/>
+              <button onClick={quickSearch} className="m-1 rounded-md bg-[#08689F] px-5 text-sm font-semibold text-white transition hover:bg-[#075A89]">Search</button>
             </div>
+            {searchError && <p className="text-xs font-medium text-red-600 lg:col-start-2">{searchError}</p>}
           </div>
         </section>
 
