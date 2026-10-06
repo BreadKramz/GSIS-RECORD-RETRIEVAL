@@ -55,11 +55,11 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
         </div>
       </button>
 
-      <nav className="relative flex-1 overflow-y-auto px-3.5 py-5">
+      <nav className="relative min-h-0 flex-1 overflow-hidden px-3.5 py-4">
         <p className="px-3 pb-2.5 text-[9px] font-bold uppercase tracking-[0.2em] text-blue-200/60">
           Records Workspace
         </p>
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           {navItems.map(({ label, icon: Icon, page }) => {
             const active = isActive(page);
             return (
@@ -76,12 +76,12 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
           })}
         </div>
 
-        <div className="mx-2 my-5 border-t border-white/10" />
+        <div className="mx-2 my-3 border-t border-white/10" />
 
         <p className="px-3 pb-2.5 text-[9px] font-bold uppercase tracking-[0.2em] text-blue-200/60">
           Administration
         </p>
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           <button onClick={() => onNavigate("users")} className={navClass(currentPage === "users")}>
             <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
               currentPage === "users" ? "bg-[#08689F]/10 text-[#08689F]" : "bg-white/[0.06] text-blue-100"
