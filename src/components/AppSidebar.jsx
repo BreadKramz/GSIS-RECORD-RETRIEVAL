@@ -1,6 +1,5 @@
 import {
   Archive,
-  ChevronRight,
   FileArchive,
   History,
   LayoutDashboard,
@@ -8,11 +7,10 @@ import {
   RotateCcw,
   Search,
   Settings,
-  ShieldCheck,
   Users,
 } from "lucide-react";
 
-const navItems = [
+const workspace = [
   { label: "Dashboard", icon: LayoutDashboard, page: "dashboard" },
   { label: "Search Records", icon: Search, page: "search" },
   { label: "Records", icon: Archive, page: "records" },
@@ -21,104 +19,96 @@ const navItems = [
   { label: "History", icon: History, page: "history" },
 ];
 
+const administration = [
+  { label: "User Management", icon: Users, page: "users" },
+  { label: "Settings", icon: Settings, page: "settings" },
+];
+
 function AppSidebar({ currentPage, onNavigate, onLogout }) {
-  const isActive = (page) =>
+  const activePage = (page) =>
     currentPage === page ||
     (currentPage === "record" && page === "search") ||
     (currentPage === "add-record" && page === "records");
 
-  const navClass = (active) =>
-    `group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] font-medium transition-all duration-200 ${
-      active
-        ? "bg-white text-[#075F91] shadow-[0_6px_18px_rgba(1,31,50,.16)]"
-        : "text-blue-50/85 hover:bg-white/10 hover:text-white"
-    }`;
+  const NavButton = ({ item }) => {
+    const active = activePage(item.page);
+    const Icon = item.icon;
+
+    return (
+      <button
+        onClick={() => onNavigate(item.page)}
+        className={`relative flex h-11 w-full items-center gap-3 rounded-lg px-3 text-left text-[13px] font-medium transition-all duration-150 ${
+          active
+            ? "bg-[#E9F3F8] text-[#075F91]"
+            : "text-[#526B79] hover:bg-[#F2F7F9] hover:text-[#075F91]"
+        }`}
+      >
+        {active && <span className="absolute -left-0.5 h-5 w-[3px] rounded-full bg-[#0782B9]" />}
+        <Icon size={18} strokeWidth={active ? 2.2 : 1.8} className={active ? "text-[#0782B9]" : "text-[#718894]"} />
+        <span className="flex-1">{item.label}</span>
+      </button>
+    );
+  };
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col overflow-hidden bg-gradient-to-b from-[#064D76] via-[#075F91] to-[#063C5C] text-white shadow-[8px_0_30px_rgba(12,48,68,.10)] lg:flex">
-      <div className="pointer-events-none absolute -left-20 top-16 h-52 w-52 rounded-full bg-[#20A46B]/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-28 h-56 w-56 rounded-full bg-[#E2B62F]/10 blur-3xl" />
-
+    <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col overflow-hidden border-r border-[#D6E2E8] bg-[#F9FBFC] text-[#263F4D] shadow-[4px_0_18px_rgba(27,67,88,.04)] lg:flex">
       <button
         onClick={() => onNavigate("dashboard")}
-        className="relative flex h-[106px] w-full items-center gap-3.5 border-b border-white/10 px-5 text-left transition hover:bg-white/[0.04]"
+        className="flex h-[94px] shrink-0 items-center gap-3 border-b border-[#DDE7EC] bg-white px-5 text-left transition hover:bg-[#FBFDFE]"
       >
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white p-1.5 shadow-[0_8px_22px_rgba(0,0,0,.16)] ring-1 ring-white/30">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#DDE7EC] bg-white p-1 shadow-sm">
           <img src="/gsis-logo.svg" alt="GSIS" className="h-full w-full object-contain" />
         </div>
         <div className="min-w-0">
-          <p className="text-[22px] font-bold leading-none tracking-[0.07em]">GSIS</p>
-          <p className="mt-2 text-[9px] font-semibold uppercase leading-[1.45] tracking-[0.13em] text-blue-100/75">
-            Record Retrieval
-            <span className="block">System</span>
+          <p className="text-[20px] font-extrabold leading-none tracking-[0.08em] text-[#075F91]">GSIS</p>
+          <p className="mt-1.5 text-[9px] font-bold uppercase leading-[1.4] tracking-[0.11em] text-[#6D8490]">
+            Record Retrieval System
           </p>
+          <p className="mt-0.5 text-[9px] text-[#8CA0AA]">Dumaguete Branch</p>
         </div>
       </button>
 
-      <nav className="relative min-h-0 flex-1 overflow-hidden px-3.5 py-4">
-        <p className="px-3 pb-2.5 text-[9px] font-bold uppercase tracking-[0.2em] text-blue-200/60">
-          Records Workspace
+      <nav className="min-h-0 flex-1 overflow-hidden px-3 py-4">
+        <p className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[#9AAAB2]">
+          Workspace
         </p>
         <div className="space-y-0.5">
-          {navItems.map(({ label, icon: Icon, page }) => {
-            const active = isActive(page);
-            return (
-              <button key={label} onClick={() => onNavigate(page)} className={navClass(active)}>
-                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition ${
-                  active ? "bg-[#08689F]/10 text-[#08689F]" : "bg-white/[0.06] text-blue-100 group-hover:bg-white/10"
-                }`}>
-                  <Icon size={17} />
-                </span>
-                <span className="flex-1">{label}</span>
-                {active && <ChevronRight size={14} className="text-[#08689F]/55" />}
-              </button>
-            );
-          })}
+          {workspace.map((item) => <NavButton key={item.page} item={item} />)}
         </div>
 
-        <div className="mx-2 my-3 border-t border-white/10" />
+        <div className="mx-3 my-3 border-t border-[#E1E9ED]" />
 
-        <p className="px-3 pb-2.5 text-[9px] font-bold uppercase tracking-[0.2em] text-blue-200/60">
+        <p className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[0.18em] text-[#9AAAB2]">
           Administration
         </p>
         <div className="space-y-0.5">
-          <button onClick={() => onNavigate("users")} className={navClass(currentPage === "users")}>
-            <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-              currentPage === "users" ? "bg-[#08689F]/10 text-[#08689F]" : "bg-white/[0.06] text-blue-100"
-            }`}><Users size={17}/></span>
-            <span className="flex-1">User Management</span>
-            {currentPage === "users" && <ChevronRight size={14} className="text-[#08689F]/55"/>}
-          </button>
-          <button onClick={() => onNavigate("settings")} className={navClass(currentPage === "settings")}>
-            <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-              currentPage === "settings" ? "bg-[#08689F]/10 text-[#08689F]" : "bg-white/[0.06] text-blue-100"
-            }`}><Settings size={17}/></span>
-            <span className="flex-1">Settings</span>
-            {currentPage === "settings" && <ChevronRight size={14} className="text-[#08689F]/55"/>}
-          </button>
+          {administration.map((item) => <NavButton key={item.page} item={item} />)}
         </div>
       </nav>
 
-      <div className="relative border-t border-white/10 bg-[#043C5C]/35 p-3.5">
-        <div className="mb-2.5 flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.07] p-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-[#08689F] shadow-sm">
-            <ShieldCheck size={18}/>
+      <div className="shrink-0 border-t border-[#DDE7EC] bg-white p-3">
+        <div className="flex items-center gap-3 rounded-lg px-2 py-2">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#075F91] text-xs font-bold text-white">
+            A
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-semibold text-white">Administrator</p>
-            <p className="mt-0.5 text-[10px] text-blue-100/60">Full system access</p>
+            <p className="truncate text-xs font-semibold text-[#294553]">Administrator</p>
+            <div className="mt-0.5 flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#56A447]" />
+              <p className="text-[10px] text-[#8A9DA6]">Full system access</p>
+            </div>
           </div>
-          <span className="h-2 w-2 rounded-full bg-[#6ED58A] shadow-[0_0_0_3px_rgba(110,213,138,.12)]" />
         </div>
         <button
           onClick={onLogout}
-          className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-medium text-blue-100/75 transition hover:bg-white/10 hover:text-white"
+          className="mt-1 flex h-9 w-full items-center gap-3 rounded-lg px-3 text-xs font-medium text-[#708691] transition hover:bg-[#F3F6F8] hover:text-[#B04747]"
         >
-          <LogOut size={16}/>
-          <span className="flex-1 text-left">Sign out</span>
-          <ChevronRight size={13} className="opacity-0 transition group-hover:opacity-60"/>
+          <LogOut size={16} />
+          Sign out
         </button>
       </div>
+
+      <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-[#087DB4] via-[#4F963C] to-[#D8AC29]" />
     </aside>
   );
 }
