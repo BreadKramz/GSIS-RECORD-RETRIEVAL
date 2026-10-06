@@ -82,7 +82,6 @@ function Login({ onLogin }) {
                     <input
                       id="username"
                       type="text"
-                      required
                       autoComplete="username"
                       placeholder="Enter your username"
                       className="h-12 w-full rounded-lg border border-white/[0.13] bg-white/[0.055] pl-10 pr-3 text-[13px] text-white outline-none transition placeholder:text-white/30 focus:border-[#5bb5eb]/65 focus:bg-white/[0.075] focus:ring-2 focus:ring-[#1586ce]/15"
@@ -97,7 +96,6 @@ function Login({ onLogin }) {
                     <input
                       id="password"
                       type={showPassword ? "text" : "password"}
-                      required
                       autoComplete="current-password"
                       placeholder="Enter your password"
                       className="h-12 w-full rounded-lg border border-white/[0.13] bg-white/[0.055] pl-10 pr-10 text-[13px] text-white outline-none transition placeholder:text-white/30 focus:border-[#5bb5eb]/65 focus:bg-white/[0.075] focus:ring-2 focus:ring-[#1586ce]/15"
