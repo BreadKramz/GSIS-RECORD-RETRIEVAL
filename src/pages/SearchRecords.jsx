@@ -1,15 +1,6 @@
 import { useMemo, useState } from "react";
 import { ArrowLeft, FileArchive, Filter, MapPin, Search, UserRound } from "lucide-react";
 
-const records = [
-  { id: "PE-00125", name: "Juan Dela Cruz", type: "Policy Envelope", status: "Retrieved", location: "Legal Office", holder: "Ma'am Pearl", updated: "10 minutes ago" },
-  { id: "AF-00342", name: "Maria Santos", type: "Active File", status: "Available", location: "Records Section", holder: "Records Section", updated: "35 minutes ago" },
-  { id: "RT-00092", name: "Pedro Reyes", type: "Retirement", status: "Forwarded", location: "Retirement Section", holder: "Retirement Section", updated: "1 hour ago" },
-  { id: "IF-00218", name: "Ana Garcia", type: "Inactive File", status: "Retrieved", location: "Legal Office", holder: "Ma'am Pearl", updated: "2 hours ago" },
-  { id: "PE-00481", name: "Roberto Lim", type: "Policy Envelope", status: "Available", location: "Records Section", holder: "Records Section", updated: "Yesterday" },
-  { id: "AF-00617", name: "Elena Flores", type: "Active File", status: "Available", location: "Records Section", holder: "Records Section", updated: "Yesterday" },
-];
-
 function StatusBadge({ status }) {
   const styles = {
     Available: "bg-green-50 text-[#4F8F3A] border-green-200",
@@ -19,14 +10,14 @@ function StatusBadge({ status }) {
   return <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold ${styles[status] || "bg-slate-50 text-slate-600 border-slate-200"}`}>{status}</span>;
 }
 
-function SearchRecords({ onBack, onSelectRecord }) {
+function SearchRecords({ records, onBack, onSelectRecord }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("All");
 
   const filtered = useMemo(() => records.filter((record) => {
     const q = query.trim().toLowerCase();
-    const matchesQuery = !q || [record.id, record.name, record.location, record.holder].some((value) => value.toLowerCase().includes(q));
-    return matchesQuery && (type === "All" || record.type === type);
+    const matchesQuery = !q || [record.recordNo, record.memberName, record.location, record.custodian].some((value) => value?.toLowerCase().includes(q));
+    return matchesQuery && (type === "All" || record.category === type);
   }), [query, type]);
 
   return (
@@ -50,7 +41,7 @@ function SearchRecords({ onBack, onSelectRecord }) {
       <main className="mx-auto max-w-[1500px] p-5 md:p-8">
         <section className="mb-6">
           <h2 className="text-2xl font-bold">Find a physical record</h2>
-          <p className="mt-1 text-sm text-slate-500">Search the prototype registry to check a file's status, current location, and custodian.</p>
+          <p className="mt-1 text-sm text-slate-500">Search the record registry to check a file's status, current location, and custodian.</p>
         </section>
 
         <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
@@ -102,14 +93,14 @@ function SearchRecords({ onBack, onSelectRecord }) {
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
                         <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#EDF3F7] text-[#08689F]"><FileArchive size={18} /></div>
-                        <div><p className="text-sm font-semibold">{record.name}</p><p className="text-xs text-slate-400">{record.id}</p></div>
+                        <div><p className="text-sm font-semibold">{record.memberName}</p><p className="text-xs text-slate-400">{record.recordNo}</p></div>
                       </div>
                     </td>
-                    <td className="px-4 py-4 text-sm text-slate-600">{record.type}</td>
+                    <td className="px-4 py-4 text-sm text-slate-600">{record.category}</td>
                     <td className="px-4 py-4"><StatusBadge status={record.status} /></td>
                     <td className="px-4 py-4"><div className="flex items-center gap-2 text-sm text-slate-600"><MapPin size={15} className="text-slate-400" />{record.location}</div></td>
-                    <td className="px-4 py-4"><div className="flex items-center gap-2 text-sm text-slate-600"><UserRound size={15} className="text-slate-400" />{record.holder}</div></td>
-                    <td className="px-5 py-4 text-sm text-slate-500">{record.updated}</td>
+                    <td className="px-4 py-4"><div className="flex items-center gap-2 text-sm text-slate-600"><UserRound size={15} className="text-slate-400" />{record.custodian}</div></td>
+                    <td className="px-5 py-4 text-sm text-slate-500">{record.lastUpdated}</td>
                   </tr>
                 ))}
                 {filtered.length === 0 && <tr><td colSpan="6" className="px-6 py-14 text-center"><Search className="mx-auto mb-3 text-slate-300" size={30} /><p className="font-semibold text-slate-600">No matching records found</p><p className="mt-1 text-sm text-slate-400">Try another member name, record number, or category.</p></td></tr>}
@@ -117,7 +108,6 @@ function SearchRecords({ onBack, onSelectRecord }) {
             </table>
           </div>
         </section>
-        <p className="mt-4 text-xs text-slate-400">Prototype data only. Records will be loaded from the central database when the backend is connected.</p>
       </main>
     </div>
   );
