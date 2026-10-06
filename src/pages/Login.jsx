@@ -12,12 +12,13 @@ function Login({ onLogin }) {
   return (
     <main className="relative h-screen max-h-screen w-screen overflow-hidden bg-[#061522] font-sans text-white">
       <div
-        className="absolute inset-0 bg-cover bg-[center_58%] bg-no-repeat"
+        className="absolute -inset-2 scale-[1.02] bg-cover bg-[center_58%] bg-no-repeat blur-[1.5px]"
         style={{ backgroundImage: "url('/gsis-login-background.png')" }}
       />
-      <div className="absolute inset-0 bg-[#03131f]/10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#03131f]/58 via-[#03131f]/8 to-[#03131f]/34" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#020d16]/32 via-transparent to-[#03131f]/10" />
+      <div className="absolute inset-0 bg-[#03131f]/30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#02111d]/78 via-[#03131f]/32 to-[#02111d]/62" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#020b13]/55 via-transparent to-[#03131f]/28" />
+      <div className="absolute inset-y-0 right-0 w-[48%] bg-gradient-to-l from-[#020d16]/42 to-transparent" />
 
       <div className="relative z-10 mx-auto grid h-full w-full max-w-[1600px] grid-cols-1 items-center px-8 lg:grid-cols-[1fr_410px] lg:gap-16 lg:px-12 xl:grid-cols-[1fr_430px] xl:px-16">
         <section className="hidden self-center lg:block">
