@@ -3,10 +3,18 @@ import { Eye, EyeOff, LockKeyhole, ShieldCheck, UserRound } from "lucide-react";
 
 function Login({ onLogin }) {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onLogin();
+    setError("");
+    setLoading(true);
+    const result = await onLogin(email.trim(), password);
+    if (!result.ok) setError(result.message);
+    setLoading(false);
   };
 
   return (
@@ -76,14 +84,17 @@ function Login({ onLogin }) {
 
               <form className="space-y-4" onSubmit={handleSubmit}>
                 <div>
-                  <label htmlFor="username" className="mb-1.5 block text-[11px] font-medium text-white/65">Username</label>
+                  <label htmlFor="username" className="mb-1.5 block text-[11px] font-medium text-white/65">Email</label>
                   <div className="group relative">
                     <UserRound size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/35 group-focus-within:text-[#74c3f2]" />
                     <input
                       id="username"
-                      type="text"
+                      type="email"
                       autoComplete="username"
-                      placeholder="Enter your username"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      required
+                      placeholder="Enter your email"
                       className="h-12 w-full rounded-lg border border-white/[0.13] bg-white/[0.055] pl-10 pr-3 text-[13px] text-white outline-none transition placeholder:text-white/30 focus:border-[#5bb5eb]/65 focus:bg-white/[0.075] focus:ring-2 focus:ring-[#1586ce]/15"
                     />
                   </div>
@@ -97,6 +108,9 @@ function Login({ onLogin }) {
                       id="password"
                       type={showPassword ? "text" : "password"}
                       autoComplete="current-password"
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                      required
                       placeholder="Enter your password"
                       className="h-12 w-full rounded-lg border border-white/[0.13] bg-white/[0.055] pl-10 pr-10 text-[13px] text-white outline-none transition placeholder:text-white/30 focus:border-[#5bb5eb]/65 focus:bg-white/[0.075] focus:ring-2 focus:ring-[#1586ce]/15"
                     />
@@ -119,11 +133,18 @@ function Login({ onLogin }) {
                   <button type="button" className="font-medium text-[#79c5f0] hover:text-white">Forgot password?</button>
                 </div>
 
+                {error && (
+                  <div className="rounded-lg border border-red-300/20 bg-red-500/10 px-3 py-2.5 text-[11px] text-red-100">
+                    {error}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="h-12 w-full rounded-lg bg-[#0879bd] text-[13px] font-semibold shadow-[0_9px_22px_rgba(0,88,150,.28)] transition hover:bg-[#0987ce] active:translate-y-px"
+                  disabled={loading}
+                  className="h-12 w-full rounded-lg bg-[#0879bd] text-[13px] font-semibold shadow-[0_9px_22px_rgba(0,88,150,.28)] transition hover:bg-[#0987ce] active:translate-y-px disabled:cursor-wait disabled:opacity-60"
                 >
-                  Sign In
+                  {loading ? "Signing in..." : "Sign In"}
                 </button>
               </form>
 
