@@ -22,6 +22,7 @@ function App() {
 
   const handleLogout = () => { setIsAuthenticated(false); setPage("dashboard"); setSelectedRecord(null); };
   const openRecord = (record) => { setSelectedRecord(record); setPage("record"); };
+  const openRecordAction = (action) => { setPage(action); };
   const addRecord = (form) => {
     const recordNo = form.recordNo.trim().toUpperCase();
     if (records.some(r => r.recordNo.toUpperCase() === recordNo)) return { ok:false, message:"That record number is already registered." };
@@ -98,15 +99,15 @@ function App() {
   if (page === "search") {
     content = <SearchRecords records={records} onBack={() => setPage("dashboard")} onSelectRecord={openRecord} />;
   } else if (page === "record" && selectedRecord) {
-    content = <RecordDetails record={selectedRecord} transactions={transactions} onBack={() => setPage("records")} onNavigate={setPage} />;
+    content = <RecordDetails record={selectedRecord} transactions={transactions} onBack={() => setPage("records")} onNavigate={openRecordAction} />;
   } else if (page === "records") {
     content = <Records records={records} onNavigate={setPage} onSelectRecord={openRecord} />;
   } else if (page === "add-record") {
     content = <AddRecord onBack={() => setPage("records")} onAddRecord={addRecord} />;
   } else if (page === "retrieve") {
-    content = <RetrieveRecord records={records} onRetrieve={retrieveRecord} />;
+    content = <RetrieveRecord records={records} onRetrieve={retrieveRecord} initialRecord={selectedRecord?.status === "Available" ? selectedRecord : null} />;
   } else if (page === "forward") {
-    content = <ForwardRecord records={records} onForward={forwardRecord} />;
+    content = <ForwardRecord records={records} onForward={forwardRecord} initialRecord={selectedRecord?.status !== "Available" ? selectedRecord : null} />;
   } else if (page === "returns") {
     content = <Returns records={records} onReturn={returnRecord} />;
   } else if (page === "history") {
