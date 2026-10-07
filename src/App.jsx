@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "./lib/supabaseClient.js";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import SearchRecords from "./pages/SearchRecords";
@@ -14,13 +15,82 @@ import UserManagement from "./pages/UserManagement";
 import SettingsPage from "./pages/SettingsPage";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [session, setSession] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [page, setPage] = useState("dashboard");
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [records, setRecords] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
-  const handleLogout = () => { setIsAuthenticated(false); setPage("dashboard"); setSelectedRecord(null); };
+  useEffect(() => {
+    const loadProfile = async (userId) => {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("id, full_name, role, is_active")
+        .eq("id", userId)
+        .single();
+
+      if (error || !data?.is_active) {
+        await supabase.auth.signOut();
+        setSession(null);
+        setProfile(null);
+        return;
+      }
+
+      setProfile(data);
+    };
+
+    const initializeAuth = async () => {
+      const { data } = await supabase.auth.getSession();
+      const currentSession = data.session;
+      setSession(currentSession);
+      if (currentSession?.user) await loadProfile(currentSession.user.id);
+      setAuthLoading(false);
+    };
+
+    initializeAuth();
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession);
+      if (!nextSession) setProfile(null);
+    });
+
+    return () => listener.subscription.unsubscribe();
+  }, []);
+
+  const handleLogin = async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) return { ok:false, message:"Invalid email or password." };
+
+    const { data: userProfile, error: profileError } = await supabase
+      .from("profiles")
+      .select("id, full_name, role, is_active")
+      .eq("id", data.user.id)
+      .single();
+
+    if (profileError || !userProfile) {
+      await supabase.auth.signOut();
+      return { ok:false, message:"Your RRS profile could not be loaded." };
+    }
+
+    if (!userProfile.is_active) {
+      await supabase.auth.signOut();
+      return { ok:false, message:"This account is inactive. Contact an administrator." };
+    }
+
+    setSession(data.session);
+    setProfile(userProfile);
+    return { ok:true };
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+    setProfile(null);
+    setPage("dashboard");
+    setSelectedRecord(null);
+  };
   const openRecord = (record) => { setSelectedRecord(record); setPage("record"); };
   const openRecordAction = (action) => { setPage(action); };
   const addRecord = (form) => {
@@ -93,7 +163,11 @@ function App() {
     return { ok:true };
   };
 
-  if (!isAuthenticated) return <Login onLogin={() => setIsAuthenticated(true)} />;
+  if (authLoading) {
+    return <div className="flex min-h-screen items-center justify-center bg-[#061522] text-sm font-semibold text-white/70">Loading RRS...</div>;
+  }
+
+  if (!session || !profile) return <Login onLogin={handleLogin} />;
 
   let content;
   if (page === "search") {
@@ -120,6 +194,6 @@ function App() {
     content = <Dashboard onNavigate={setPage} onOpenRecord={openRecord} records={records} transactions={transactions} />;
   }
 
-  return <><AppSidebar currentPage={page} onNavigate={setPage} onLogout={handleLogout}/><div className="lg:pl-64">{content}</div></>;
+  return <><AppSidebar currentPage={page} onNavigate={setPage} onLogout={handleLogout} profile={profile}/><div className="lg:pl-64">{content}</div></>;
 }
 export default App;
