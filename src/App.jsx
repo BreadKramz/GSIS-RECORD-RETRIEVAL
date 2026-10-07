@@ -187,7 +187,7 @@ function App() {
   } else if (page === "history") {
     content = <HistoryPage transactions={transactions} />;
   } else if (page === "users") {
-    content = <UserManagement />;
+    content = profile.role === "admin" ? <UserManagement /> : <Dashboard onNavigate={setPage} onOpenRecord={openRecord} records={records} transactions={transactions} />;
   } else if (page === "settings") {
     content = <SettingsPage />;
   } else {
