@@ -1,6 +1,7 @@
 import {
   Archive,
   FileArchive,
+  ArrowRightLeft,
   History,
   LayoutDashboard,
   LogOut,
@@ -15,6 +16,7 @@ const workspace = [
   { label: "Search Records", icon: Search, page: "search" },
   { label: "Records", icon: Archive, page: "records" },
   { label: "Retrieve", icon: FileArchive, page: "retrieve" },
+  { label: "Forward", icon: ArrowRightLeft, page: "forward" },
   { label: "Returns", icon: RotateCcw, page: "returns" },
   { label: "History", icon: History, page: "history" },
 ];
