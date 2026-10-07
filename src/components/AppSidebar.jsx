@@ -27,6 +27,7 @@ const administration = [
 ];
 
 function AppSidebar({ currentPage, onNavigate, onLogout, profile }) {
+  const isAdmin = profile?.role === "admin";
   const activePage = (page) =>
     currentPage === page ||
     (currentPage === "record" && page === "search") ||
@@ -80,11 +81,11 @@ function AppSidebar({ currentPage, onNavigate, onLogout, profile }) {
 
         <div className="mx-3 my-2 border-t border-white/10" />
 
-        <p className="mb-1.5 px-3 text-[8px] font-bold uppercase tracking-[0.18em] text-blue-100/55">
+        {isAdmin && <p className="mb-1.5 px-3 text-[8px] font-bold uppercase tracking-[0.18em] text-blue-100/55">
           Administration
-        </p>
+        </p>}
         <div className="space-y-0.5">
-          {administration.map((item) => <NavButton key={item.page} item={item} />)}
+          {isAdmin && administration.map((item) => <NavButton key={item.page} item={item} />)}
         </div>
       </nav>
 
