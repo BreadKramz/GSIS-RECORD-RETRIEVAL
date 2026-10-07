@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { ArrowRightLeft, CheckCircle2, ClipboardList, MapPin, Search, UserRound } from "lucide-react";
 
-function ForwardRecord({ records, onForward }) {
-  const [query,setQuery]=useState("");
-  const [selected,setSelected]=useState(null);
-  const [searched,setSearched]=useState(false);
+function ForwardRecord({ records, onForward, initialRecord = null }) {
+  const [query,setQuery]=useState(initialRecord?.recordNo || "");
+  const [selected,setSelected]=useState(initialRecord);
+  const [searched,setSearched]=useState(Boolean(initialRecord));
   const [message,setMessage]=useState("");
   const [form,setForm]=useState({ forwardedBy:"", forwardedTo:"", destination:"", remarks:"" });
 
