@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { ArrowRight, CheckCircle2, FileArchive, Search, UserRound, MapPin, ClipboardList } from "lucide-react";
 
-function RetrieveRecord({ records, onRetrieve }) {
-  const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState(null);
-  const [searched, setSearched] = useState(false);
+function RetrieveRecord({ records, onRetrieve, initialRecord = null }) {
+  const [query, setQuery] = useState(initialRecord?.recordNo || "");
+  const [selected, setSelected] = useState(initialRecord);
+  const [searched, setSearched] = useState(Boolean(initialRecord));
   const [message, setMessage] = useState("");
   const [form, setForm] = useState({ requestedBy:"", destination:"", remarks:"" });
 
