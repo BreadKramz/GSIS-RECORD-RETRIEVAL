@@ -34,7 +34,7 @@ function RecordDetails({ record, transactions, onBack, onNavigate }) {
           </div>
           <div className="flex flex-wrap gap-2">
             <button disabled={record.status !== "Available"} onClick={() => onNavigate("retrieve")} className="flex items-center gap-2 rounded-md bg-[#08689F] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#075A89] disabled:cursor-not-allowed disabled:opacity-40"><ArchiveRestore size={17}/>Retrieve</button>
-            <button disabled className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-400 opacity-60"><ArrowRightLeft size={17}/>Forward</button>
+            <button disabled={record.status === "Available"} onClick={() => onNavigate("forward")} className="flex items-center gap-2 rounded-md border border-amber-300 bg-white px-4 py-2.5 text-sm font-semibold text-[#8A6A00] hover:bg-amber-50 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400 disabled:opacity-40"><ArrowRightLeft size={17}/>Forward</button>
             <button disabled={record.status === "Available"} onClick={() => onNavigate("returns")} className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"><RotateCcw size={17}/>Return</button>
           </div>
         </div>
