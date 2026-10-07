@@ -8,6 +8,7 @@ import Records from "./pages/Records";
 import AddRecord from "./pages/AddRecord";
 import RetrieveRecord from "./pages/RetrieveRecord";
 import Returns from "./pages/Returns";
+import ForwardRecord from "./pages/ForwardRecord";
 import HistoryPage from "./pages/HistoryPage";
 import UserManagement from "./pages/UserManagement";
 import SettingsPage from "./pages/SettingsPage";
@@ -66,6 +67,19 @@ function App() {
     return { ok:true };
   };
 
+  const forwardRecord = (recordId, form) => {
+    const record = records.find(r => r.id === recordId);
+    if (!record) return { ok:false, message:"Record not found." };
+    if (record.status === "Available") return { ok:false, message:"Retrieve the record before forwarding it." };
+    const now = new Date().toLocaleString();
+    const destination = form.destination.trim();
+    const custodian = form.forwardedTo.trim();
+    setRecords(current => current.map(r => r.id === recordId ? { ...r, status:"Forwarded", location:destination, custodian, remarks:form.remarks.trim() || r.remarks, lastUpdated:now } : r));
+    setTransactions(current => [{ id:crypto.randomUUID(), recordId, recordNo:record.recordNo, memberName:record.memberName, action:"Forwarded", from:record.location, to:destination, person:`${form.forwardedBy.trim()} → ${custodian}`, remarks:form.remarks.trim(), timestamp:now }, ...current]);
+    setSelectedRecord(current => current?.id === recordId ? { ...current, status:"Forwarded", location:destination, custodian, lastUpdated:now } : current);
+    return { ok:true };
+  };
+
   const returnRecord = (recordId, form) => {
     const record = records.find(r => r.id === recordId);
     if (!record) return { ok:false, message:"Record not found." };
@@ -91,6 +105,8 @@ function App() {
     content = <AddRecord onBack={() => setPage("records")} onAddRecord={addRecord} />;
   } else if (page === "retrieve") {
     content = <RetrieveRecord records={records} onRetrieve={retrieveRecord} />;
+  } else if (page === "forward") {
+    content = <ForwardRecord records={records} onForward={forwardRecord} />;
   } else if (page === "returns") {
     content = <Returns records={records} onReturn={returnRecord} />;
   } else if (page === "history") {
