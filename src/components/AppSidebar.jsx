@@ -26,7 +26,7 @@ const administration = [
   { label: "Settings", icon: Settings, page: "settings" },
 ];
 
-function AppSidebar({ currentPage, onNavigate, onLogout }) {
+function AppSidebar({ currentPage, onNavigate, onLogout, profile }) {
   const activePage = (page) =>
     currentPage === page ||
     (currentPage === "record" && page === "search") ||
@@ -91,13 +91,13 @@ function AppSidebar({ currentPage, onNavigate, onLogout }) {
       <div className="shrink-0 border-t border-white/10 bg-[#065681] p-3">
         <div className="flex items-center gap-3 rounded-lg px-2 py-2">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/10 text-xs font-semibold text-white">
-            A
+            {profile?.full_name?.charAt(0)?.toUpperCase() || "U"}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-semibold text-white">Administrator</p>
+            <p className="truncate text-xs font-semibold text-white">{profile?.full_name || "User"}</p>
             <div className="mt-0.5 flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-[#56A447]" />
-              <p className="text-[10px] text-blue-100/60">Full system access</p>
+              <p className="text-[10px] text-blue-100/60">{profile?.role === "admin" ? "Administrator · Full access" : "Staff account"}</p>
             </div>
           </div>
         </div>
