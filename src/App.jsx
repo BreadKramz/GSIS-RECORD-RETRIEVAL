@@ -84,6 +84,32 @@ function App() {
     return { ok:true };
   };
 
+  const loadRecords = async () => {
+    const { data, error } = await supabase.from("records")
+      .select("id,record_no,member_name,category,status,location,remarks,created_at,updated_at,current_custodian_id")
+      .order("created_at", { ascending: false });
+    if (error) return { ok: false, message: error.message };
+    setRecords((data || []).map(r => ({
+      id: r.id, recordNo: r.record_no, memberName: r.member_name,
+      category: r.category, status: r.status, location: r.location,
+      custodian: r.current_custodian_id || r.location,
+      remarks: r.remarks || "",
+      dateAdded: new Date(r.created_at).toLocaleDateString(),
+      lastUpdated: new Date(r.updated_at).toLocaleString(),
+    })));
+    return { ok: true };
+  };
+
+  useEffect(() => {
+    if (session && profile) {
+      loadRecords().then(result => {
+        if (!result.ok) console.error("Unable to load RRS records:", result.message);
+      });
+    } else {
+      setRecords([]);
+    }
+  }, [session?.user?.id, profile?.id]);
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setSession(null);
@@ -93,25 +119,19 @@ function App() {
   };
   const openRecord = (record) => { setSelectedRecord(record); setPage("record"); };
   const openRecordAction = (action) => { setPage(action); };
-  const addRecord = (form) => {
-    const recordNo = form.recordNo.trim().toUpperCase();
-    if (records.some(r => r.recordNo.toUpperCase() === recordNo)) return { ok:false, message:"That record number is already registered." };
-    const now = new Date();
-    const newRecord = {
-      id: crypto.randomUUID(),
-      recordNo,
-      memberName: form.memberName.trim(),
-      category: form.category,
-      status: "Available",
-      location: form.location.trim(),
-      custodian: form.location.trim(),
-      remarks: form.remarks.trim(),
-      dateAdded: now.toLocaleDateString(),
-      lastUpdated: now.toLocaleString(),
-    };
-    setRecords(current => [newRecord, ...current]);
-    setTransactions(current => [{ id:crypto.randomUUID(), recordId:newRecord.id, recordNo, memberName:newRecord.memberName, action:"Added", from:"—", to:newRecord.location, person:"Administrator", remarks:newRecord.remarks, timestamp:newRecord.lastUpdated }, ...current]);
-    return { ok:true };
+  const addRecord = async (form) => {
+    const { error } = await supabase.rpc("rrs_add_record", {
+      p_record_no: form.recordNo.trim().toUpperCase(),
+      p_member_name: form.memberName.trim(),
+      p_category: form.category,
+      p_location: form.location.trim(),
+      p_remarks: form.remarks.trim(),
+    });
+    if (error) {
+      const duplicate = error.code === "23505";
+      return { ok: false, message: duplicate ? "That record number is already registered." : error.message };
+    }
+    return await loadRecords();
   };
 
   const retrieveRecord = (recordId, form) => {
