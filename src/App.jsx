@@ -22,6 +22,7 @@ function App() {
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [records, setRecords] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [staff, setStaff] = useState([]);
 
   useEffect(() => {
     const loadProfile = async (userId) => {
@@ -84,6 +85,43 @@ function App() {
     return { ok:true };
   };
 
+  const loadStaff = async () => {
+    const { data, error } = await supabase.from("profiles").select("id,first_name,last_name,role,is_active").eq("is_active",true);
+    if (error) return {ok:false,message:error.message};
+    setStaff(data || []);
+    return {ok:true};
+  };
+  const loadTransactions = async () => {
+    const { data, error } = await supabase.from("record_transactions")
+      .select("id,record_id,action,actor_id,from_location,to_location,from_custodian_id,to_custodian_id,remarks,created_at,records(record_no,member_name)")
+      .order("created_at",{ascending:false}).limit(1000);
+    if (error) return {ok:false,message:error.message};
+    const {data: profiles} = await supabase.from("profiles").select("id,first_name,last_name");
+    const names = Object.fromEntries((profiles || []).map(p=>[p.id,[p.first_name,p.last_name].filter(Boolean).join(" ")]));
+    setTransactions((data||[]).map(t=>({
+      id:t.id,recordId:t.record_id,recordNo:t.records?.record_no||"",
+      memberName:t.records?.member_name||"",action:t.action,
+      from:t.from_location||"—",to:t.to_location||"—",
+      person:names[t.actor_id]||"Unknown user",
+      remarks:t.remarks||"",timestamp:new Date(t.created_at).toLocaleString()
+    })));
+    return {ok:true};
+  };
+  const refreshData = async () => {
+    const results = await Promise.all([loadRecords(),loadTransactions()]);
+    const failed = results.find(r=>!r.ok);
+    return failed || {ok:true};
+  };
+  const moveRecord = async (recordId, action, location, custodianId, remarks) => {
+    const {error} = await supabase.rpc("rrs_move_record",{
+      p_record_id:recordId,p_action:action,p_location:location.trim(),
+      p_target_custodian:custodianId||null,p_remarks:remarks?.trim()||""
+    });
+    if(error) return {ok:false,message:error.message};
+    const result=await refreshData();
+    if(result.ok) setSelectedRecord(null);
+    return result;
+  };
   const loadRecords = async () => {
     const { data, error } = await supabase.from("records")
       .select("id,record_no,member_name,category,status,location,remarks,created_at,updated_at,current_custodian_id")
@@ -92,6 +130,7 @@ function App() {
     setRecords((data || []).map(r => ({
       id: r.id, recordNo: r.record_no, memberName: r.member_name,
       category: r.category, status: r.status, location: r.location,
+      custodianId: r.current_custodian_id,
       custodian: r.current_custodian_id || r.location,
       remarks: r.remarks || "",
       dateAdded: new Date(r.created_at).toLocaleDateString(),
@@ -102,11 +141,13 @@ function App() {
 
   useEffect(() => {
     if (session && profile) {
-      loadRecords().then(result => {
+      Promise.all([refreshData(),loadStaff()]).then(([result]) => {
         if (!result.ok) console.error("Unable to load RRS records:", result.message);
       });
     } else {
       setRecords([]);
+      setTransactions([]);
+      setStaff([]);
     }
   }, [session?.user?.id, profile?.id]);
 
@@ -134,54 +175,9 @@ function App() {
     return await loadRecords();
   };
 
-  const retrieveRecord = (recordId, form) => {
-    const record = records.find(r => r.id === recordId);
-    if (!record) return { ok:false, message:"Record not found." };
-    if (record.status !== "Available") return { ok:false, message:"Only available records can be retrieved." };
-    const now = new Date().toLocaleString();
-    setRecords(current => current.map(r => r.id === recordId ? {
-      ...r,
-      status: "Retrieved",
-      location: form.destination.trim(),
-      custodian: form.requestedBy.trim(),
-      remarks: form.remarks.trim() || r.remarks,
-      lastUpdated: now,
-    } : r));
-    setTransactions(current => [{ id:crypto.randomUUID(), recordId, recordNo:record.recordNo, memberName:record.memberName, action:"Retrieved", from:record.location, to:form.destination.trim(), person:form.requestedBy.trim(), remarks:form.remarks.trim(), timestamp:now }, ...current]);
-    setSelectedRecord(current => current?.id === recordId ? {
-      ...current,
-      status:"Retrieved",
-      location:form.destination.trim(),
-      custodian:form.requestedBy.trim(),
-      lastUpdated:now,
-    } : current);
-    return { ok:true };
-  };
-
-  const forwardRecord = (recordId, form) => {
-    const record = records.find(r => r.id === recordId);
-    if (!record) return { ok:false, message:"Record not found." };
-    if (record.status === "Available") return { ok:false, message:"Retrieve the record before forwarding it." };
-    const now = new Date().toLocaleString();
-    const destination = form.destination.trim();
-    const custodian = form.forwardedTo.trim();
-    setRecords(current => current.map(r => r.id === recordId ? { ...r, status:"Forwarded", location:destination, custodian, remarks:form.remarks.trim() || r.remarks, lastUpdated:now } : r));
-    setTransactions(current => [{ id:crypto.randomUUID(), recordId, recordNo:record.recordNo, memberName:record.memberName, action:"Forwarded", from:record.location, to:destination, person:`${form.forwardedBy.trim()} → ${custodian}`, remarks:form.remarks.trim(), timestamp:now }, ...current]);
-    setSelectedRecord(current => current?.id === recordId ? { ...current, status:"Forwarded", location:destination, custodian, lastUpdated:now } : current);
-    return { ok:true };
-  };
-
-  const returnRecord = (recordId, form) => {
-    const record = records.find(r => r.id === recordId);
-    if (!record) return { ok:false, message:"Record not found." };
-    if (record.status === "Available") return { ok:false, message:"This record is already available." };
-    const now = new Date().toLocaleString();
-    const location = form.returnLocation.trim();
-    setRecords(current => current.map(r => r.id === recordId ? { ...r, status:"Available", location, custodian:form.receivedBy.trim(), lastUpdated:now } : r));
-    setTransactions(current => [{ id:crypto.randomUUID(), recordId, recordNo:record.recordNo, memberName:record.memberName, action:"Returned", from:record.location, to:location, person:form.returnedBy.trim(), remarks:form.remarks.trim(), timestamp:now }, ...current]);
-    setSelectedRecord(current => current?.id === recordId ? { ...current, status:"Available", location, custodian:form.receivedBy.trim(), lastUpdated:now } : current);
-    return { ok:true };
-  };
+  const retrieveRecord = (recordId, form) => moveRecord(recordId,"Retrieved",form.destination,form.requestedBy,form.remarks);
+  const forwardRecord = (recordId, form) => moveRecord(recordId,"Forwarded",form.destination,form.forwardedTo,form.remarks);
+  const returnRecord = (recordId, form) => moveRecord(recordId,"Returned",form.returnLocation,null,form.remarks);
 
   if (authLoading) {
     return <div className="flex min-h-screen items-center justify-center bg-[#061522] text-sm font-semibold text-white/70">Loading RRS...</div>;
@@ -199,11 +195,11 @@ function App() {
   } else if (page === "add-record") {
     content = <AddRecord onBack={() => setPage("records")} onAddRecord={addRecord} />;
   } else if (page === "retrieve") {
-    content = <RetrieveRecord records={records} onRetrieve={retrieveRecord} initialRecord={selectedRecord?.status === "Available" ? selectedRecord : null} />;
+    content = <RetrieveRecord records={records} onRetrieve={retrieveRecord} staff={staff} profile={profile} initialRecord={selectedRecord?.status === "Available" ? selectedRecord : null} />;
   } else if (page === "forward") {
-    content = <ForwardRecord records={records} onForward={forwardRecord} initialRecord={selectedRecord?.status !== "Available" ? selectedRecord : null} />;
+    content = <ForwardRecord records={records} onForward={forwardRecord} staff={staff} profile={profile} initialRecord={selectedRecord?.status !== "Available" ? selectedRecord : null} />;
   } else if (page === "returns") {
-    content = <Returns records={records} onReturn={returnRecord} />;
+    content = <Returns records={records} onReturn={returnRecord} profile={profile} />;
   } else if (page === "history") {
     content = <HistoryPage transactions={transactions} />;
   } else if (page === "users") {
