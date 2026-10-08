@@ -18,7 +18,9 @@ function Returns({ records, onReturn, profile }) {
   const submit = async (e) => {
     e.preventDefault();
     if(!selected) return setMessage("Select a retrieved or forwarded record before confirming return.");
-    const result=onReturn(selected.id,form); } catch (error) { setSaving(false); return setMessage(error.message || "Unable to save transaction."); }
+    setSaving(true);
+    let result;
+    try { result = await onReturn(selected.id,form); } catch (error) { setSaving(false); return setMessage(error.message || "Unable to save transaction."); }
     setSaving(false);
     if (!result.ok) return setMessage(result.message);
     setMessage("Record returned successfully.");
