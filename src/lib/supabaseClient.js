@@ -9,9 +9,17 @@ if (!supabaseUrl || !supabasePublishableKey) {
   );
 }
 
+// Session storage survives a refresh, but is cleared when the browser tab closes.
+const sessionStorageAdapter = {
+  getItem: (key) => window.sessionStorage.getItem(key),
+  setItem: (key, value) => window.sessionStorage.setItem(key, value),
+  removeItem: (key) => window.sessionStorage.removeItem(key),
+};
+
 export const supabase = createClient(supabaseUrl, supabasePublishableKey, {
   auth: {
-    persistSession: false,
+    storage: sessionStorageAdapter,
+    persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: false,
   },
