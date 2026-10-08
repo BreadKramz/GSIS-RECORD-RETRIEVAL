@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
 import { ArrowRightLeft, CheckCircle2, ClipboardList, MapPin, Search, UserRound } from "lucide-react";
 
-function ForwardRecord({ records, onForward, initialRecord = null }) {
+function ForwardRecord({ records, onForward, initialRecord = null, staff = [], profile }) {
   const [query,setQuery]=useState(initialRecord?.recordNo || "");
   const [selected,setSelected]=useState(initialRecord);
   const [searched,setSearched]=useState(Boolean(initialRecord));
   const [message,setMessage]=useState("");
+  const [saving,setSaving]=useState(false);
   const [form,setForm]=useState({ forwardedBy:"", forwardedTo:"", destination:"", remarks:"" });
 
   const matches=useMemo(()=>{
@@ -16,11 +17,12 @@ function ForwardRecord({ records, onForward, initialRecord = null }) {
 
   const find=()=>{setSearched(true);setSelected(null);setMessage("");};
   const change=e=>setForm({...form,[e.target.name]:e.target.value});
-  const submit=e=>{
+  const submit = async (e) => {
     e.preventDefault();
     if(!selected) return setMessage("Select a retrieved or forwarded record before confirming forwarding.");
-    const result=onForward(selected.id,form);
-    if(!result.ok) return setMessage(result.message);
+    const result=onForward(selected.id,form); } catch (error) { setSaving(false); return setMessage(error.message || "Unable to save transaction."); }
+    setSaving(false);
+    if (!result.ok) return setMessage(result.message);
     setMessage("Record forwarded successfully.");
     setSelected(null);setQuery("");setSearched(false);
     setForm({forwardedBy:"",forwardedTo:"",destination:"",remarks:""});
@@ -38,13 +40,13 @@ function ForwardRecord({ records, onForward, initialRecord = null }) {
       <form onSubmit={submit} className="mt-6 rounded-lg border border-slate-200 bg-white shadow-sm">
         <div className="border-b border-slate-200 px-6 py-5"><p className="text-xs font-semibold uppercase tracking-[.16em] text-[#08689F]">Step 2</p><h2 className="mt-1 font-bold">Forwarding Information</h2><p className="mt-1 text-sm text-slate-500">Document the custody transfer and the file's new destination.</p></div>
         <div className="grid grid-cols-2 gap-5 p-6">
-          <label className="text-sm font-semibold">Forwarded By<div className="relative mt-2"><UserRound size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input required name="forwardedBy" value={form.forwardedBy} onChange={change} placeholder="Person releasing the file" className="h-12 w-full rounded-md border border-slate-300 pl-10 pr-3 font-normal outline-none focus:border-[#08689F]"/></div></label>
-          <label className="text-sm font-semibold">Forwarded To<div className="relative mt-2"><UserRound size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input required name="forwardedTo" value={form.forwardedTo} onChange={change} placeholder="New custodian / receiving person" className="h-12 w-full rounded-md border border-slate-300 pl-10 pr-3 font-normal outline-none focus:border-[#08689F]"/></div></label>
+          <label className="text-sm font-semibold">Forwarded By<div className="relative mt-2"><UserRound size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input readOnly value={[profile?.first_name,profile?.last_name].filter(Boolean).join(" ")} className="h-12 w-full rounded-md border border-slate-300 bg-slate-50 pl-10 pr-3 font-normal"/></div></label>
+          <label className="text-sm font-semibold">Forwarded To<div className="relative mt-2"><UserRound size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><select required name="forwardedTo" value={form.forwardedTo} onChange={change} className="h-12 w-full rounded-md border border-slate-300 pl-10 pr-3 font-normal outline-none focus:border-[#08689F]"><option value="">Select an active staff member</option>{staff.map(user=><option key={user.id} value={user.id}>{[user.first_name,user.last_name].filter(Boolean).join(" ")} ({user.role})</option>)}</select></div></label>
           <label className="col-span-2 text-sm font-semibold">Destination / Office<div className="relative mt-2"><MapPin size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input required name="destination" value={form.destination} onChange={change} placeholder="Office, section, or destination" className="h-12 w-full rounded-md border border-slate-300 pl-10 pr-3 font-normal outline-none focus:border-[#08689F]"/></div></label>
           <label className="col-span-2 text-sm font-semibold">Remarks<div className="relative mt-2"><ClipboardList size={17} className="absolute left-3 top-3.5 text-slate-400"/><textarea name="remarks" value={form.remarks} onChange={change} rows="4" placeholder="Optional purpose or transfer notes..." className="w-full rounded-md border border-slate-300 py-3 pl-10 pr-3 font-normal outline-none focus:border-[#08689F]"/></div></label>
           {message&&<div className={`col-span-2 rounded-md border px-4 py-3 text-sm font-medium ${message.includes("successfully")?"border-green-200 bg-green-50 text-green-700":"border-red-200 bg-red-50 text-red-700"}`}>{message}</div>}
         </div>
-        <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50 px-6 py-4"><p className="text-xs text-slate-400">Forwarding keeps the file in circulation and updates its current custodian and location.</p><button type="submit" className="ml-auto flex items-center gap-2 rounded-md bg-[#A47700] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#8A6500]"><ArrowRightLeft size={17}/>Confirm Forward</button></div>
+        <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50 px-6 py-4"><p className="text-xs text-slate-400">Forwarding keeps the file in circulation and updates its current custodian and location.</p><button type="submit" disabled={saving} className="ml-auto flex items-center gap-2 rounded-md bg-[#A47700] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#8A6500]"><ArrowRightLeft size={17}/>Confirm Forward</button></div>
       </form>
     </main>
   </div>;
