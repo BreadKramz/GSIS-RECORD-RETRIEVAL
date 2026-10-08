@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
 import { CheckCircle2, MapPin, RotateCcw, Search, UserRound, ClipboardList } from "lucide-react";
 
-function Returns({ records, onReturn }) {
+function Returns({ records, onReturn, profile }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(null);
   const [searched, setSearched] = useState(false);
   const [message, setMessage] = useState("");
+  const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({ returnedBy:"", returnLocation:"Records Section", receivedBy:"Administrator", remarks:"" });
   const matches = useMemo(() => {
     const q=query.trim().toLowerCase();
@@ -14,11 +15,12 @@ function Returns({ records, onReturn }) {
   },[query,records]);
   const change=e=>setForm({...form,[e.target.name]:e.target.value});
   const find=()=>{setSearched(true);setSelected(null);setMessage("");};
-  const submit=e=>{
+  const submit = async (e) => {
     e.preventDefault();
     if(!selected) return setMessage("Select a retrieved or forwarded record before confirming return.");
-    const result=onReturn(selected.id,form);
-    if(!result.ok) return setMessage(result.message);
+    const result=onReturn(selected.id,form); } catch (error) { setSaving(false); return setMessage(error.message || "Unable to save transaction."); }
+    setSaving(false);
+    if (!result.ok) return setMessage(result.message);
     setMessage("Record returned successfully.");
     setSelected(null);setQuery("");setSearched(false);
     setForm({returnedBy:"",returnLocation:"Records Section",receivedBy:"Administrator",remarks:""});
@@ -36,13 +38,13 @@ function Returns({ records, onReturn }) {
       <form onSubmit={submit} className="mt-6 rounded-lg border border-slate-200 bg-white shadow-sm">
         <div className="border-b border-slate-200 px-6 py-5"><p className="text-xs font-semibold uppercase tracking-[.16em] text-[#08689F]">Step 2</p><h2 className="mt-1 font-bold">Return Information</h2><p className="mt-1 text-sm text-slate-500">Confirm who returned the file, who received it, and its storage location.</p></div>
         <div className="grid grid-cols-2 gap-5 p-6">
-          <label className="text-sm font-semibold">Returned By<div className="relative mt-2"><UserRound size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input required name="returnedBy" value={form.returnedBy} onChange={change} placeholder="Person or office returning the file" className="h-12 w-full rounded-md border border-slate-300 pl-10 pr-3 font-normal outline-none focus:border-[#08689F]"/></div></label>
-          <label className="text-sm font-semibold">Received By<div className="relative mt-2"><CheckCircle2 size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input required name="receivedBy" value={form.receivedBy} onChange={change} placeholder="Receiving staff" className="h-12 w-full rounded-md border border-slate-300 pl-10 pr-3 font-normal outline-none focus:border-[#08689F]"/></div></label>
+          <label className="text-sm font-semibold">Returned By<div className="relative mt-2"><UserRound size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input readOnly value={[profile?.first_name,profile?.last_name].filter(Boolean).join(" ")} className="h-12 w-full rounded-md border border-slate-300 bg-slate-50 pl-10 pr-3 font-normal"/></div></label>
+          <label className="text-sm font-semibold">Received By<div className="relative mt-2"><CheckCircle2 size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input readOnly value="Records Section" className="h-12 w-full rounded-md border border-slate-300 bg-slate-50 pl-10 pr-3 font-normal"/></div></label>
           <label className="col-span-2 text-sm font-semibold">Return Location<div className="relative mt-2"><MapPin size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"/><input required name="returnLocation" value={form.returnLocation} onChange={change} className="h-12 w-full rounded-md border border-slate-300 pl-10 pr-3 font-normal outline-none focus:border-[#08689F]"/></div></label>
           <label className="col-span-2 text-sm font-semibold">Remarks<div className="relative mt-2"><ClipboardList size={17} className="absolute left-3 top-3.5 text-slate-400"/><textarea name="remarks" value={form.remarks} onChange={change} rows="4" placeholder="Optional notes about the return..." className="w-full rounded-md border border-slate-300 py-3 pl-10 pr-3 font-normal outline-none focus:border-[#08689F]"/></div></label>
           {message&&<div className={`col-span-2 rounded-md border px-4 py-3 text-sm font-medium ${message.includes("successfully")?"border-green-200 bg-green-50 text-green-700":"border-red-200 bg-red-50 text-red-700"}`}>{message}</div>}
         </div>
-        <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50 px-6 py-4"><p className="text-xs text-slate-400">Confirming a return marks the record available and records the transaction.</p><button type="submit" className="ml-auto flex items-center gap-2 rounded-md bg-[#4F8F3A] px-5 py-2.5 text-sm font-semibold text-white"><RotateCcw size={17}/>Confirm Return</button></div>
+        <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50 px-6 py-4"><p className="text-xs text-slate-400">Confirming a return marks the record available and records the transaction.</p><button type="submit" disabled={saving} className="ml-auto flex items-center gap-2 rounded-md bg-[#4F8F3A] px-5 py-2.5 text-sm font-semibold text-white"><RotateCcw size={17}/>Confirm Return</button></div>
       </form>
     </main>
   </div>;
