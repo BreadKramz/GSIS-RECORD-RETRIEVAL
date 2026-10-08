@@ -127,11 +127,13 @@ function App() {
       .select("id,record_no,member_name,category,status,location,remarks,created_at,updated_at,current_custodian_id")
       .order("created_at", { ascending: false });
     if (error) return { ok: false, message: error.message };
+    const {data: people} = await supabase.from("profiles").select("id,first_name,last_name").eq("is_active",true);
+    const names = Object.fromEntries((people||[]).map(p=>[p.id,[p.first_name,p.last_name].filter(Boolean).join(" ")]));
     setRecords((data || []).map(r => ({
       id: r.id, recordNo: r.record_no, memberName: r.member_name,
       category: r.category, status: r.status, location: r.location,
       custodianId: r.current_custodian_id,
-      custodian: r.current_custodian_id ? (staff.find(p=>p.id===r.current_custodian_id) ? [staff.find(p=>p.id===r.current_custodian_id).first_name,staff.find(p=>p.id===r.current_custodian_id).last_name].filter(Boolean).join(" ") : "Assigned staff") : r.location,
+      custodian: r.current_custodian_id ? (names[r.current_custodian_id] || "Assigned staff") : r.location,
       remarks: r.remarks || "",
       dateAdded: new Date(r.created_at).toLocaleDateString(),
       lastUpdated: new Date(r.updated_at).toLocaleString(),
