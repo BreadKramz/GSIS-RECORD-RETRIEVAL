@@ -4,12 +4,22 @@ import { ArrowLeft, Save, CheckCircle2 } from "lucide-react";
 function AddRecord({ onBack, onAddRecord }) {
   const [form, setForm] = useState({ recordNo:"", memberName:"", category:"Policy Envelope", location:"Records Section", remarks:"" });
   const [error, setError] = useState("");
+  const [saving, setSaving] = useState(false);
   const change = (e) => { setError(""); setForm({...form,[e.target.name]:e.target.value}); };
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    const result = onAddRecord(form);
-    if (!result.ok) return setError(result.message);
-    onBack();
+    if (saving) return;
+    setSaving(true);
+    setError("");
+    try {
+      const result = await onAddRecord(form);
+      if (!result.ok) return setError(result.message);
+      onBack();
+    } catch (error) {
+      setError(error.message || "Unable to save record.");
+    } finally {
+      setSaving(false);
+    }
   };
   return (
     <div className="min-h-screen bg-[#F3F5F7] text-[#243746]">
@@ -26,7 +36,7 @@ function AddRecord({ onBack, onAddRecord }) {
             {error && <div className="col-span-2 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">{error}</div>}
             <div className="col-span-2 flex items-center gap-2 rounded-md border border-blue-100 bg-blue-50 px-4 py-3 text-xs text-slate-600"><CheckCircle2 size={17} className="text-[#08689F]"/>New records are registered as <b>Available</b> and assigned to the entered storage location.</div>
           </div>
-          <div className="flex justify-end gap-3 border-t border-slate-200 bg-slate-50 px-6 py-4"><button type="button" onClick={onBack} className="rounded-md border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold">Cancel</button><button type="submit" className="flex items-center gap-2 rounded-md bg-[#08689F] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#075A89]"><Save size={17}/>Save Record</button></div>
+          <div className="flex justify-end gap-3 border-t border-slate-200 bg-slate-50 px-6 py-4"><button type="button" onClick={onBack} className="rounded-md border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold">Cancel</button><button type="submit" disabled={saving} className="flex items-center gap-2 rounded-md bg-[#08689F] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#075A89]"><Save size={17}/>{saving ? "Saving..." : "Save Record"}</button></div>
         </form>
       </main>
     </div>
