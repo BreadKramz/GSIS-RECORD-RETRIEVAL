@@ -43,7 +43,7 @@ function Records({ records, onNavigate, onSelectRecord }) {
               <td className="px-6 py-4"><p className="text-sm font-semibold">{r.memberName}</p><p className="text-xs text-slate-400">{r.recordNo}</p></td>
               <td className="px-4 py-4 text-sm text-slate-600">{r.category}</td><td className="px-4 py-4"><StatusBadge status={r.status}/></td>
               <td className="px-4 py-4"><span className="flex items-center gap-2 text-sm text-slate-600"><MapPin size={15} className="text-slate-400"/>{r.location}</span></td>
-              <td className="px-4 py-4"><span className="flex items-center gap-2 text-sm text-slate-600"><UserRound size={15} className="text-slate-400"/>{r.custodian}</span></td>
+              <td className="px-4 py-4"><span className="flex items-center gap-2 text-sm text-slate-600"><UserRound size={15} className="text-slate-400"/>{r.status === "Available" ? "In storage" : r.custodian}</span></td>
               <td className="px-6 py-4 text-sm text-slate-500">{r.lastUpdated}</td>
             </tr>)}</tbody>
           </table></div>}
