@@ -20,7 +20,9 @@ function ForwardRecord({ records, onForward, initialRecord = null, staff = [], p
   const submit = async (e) => {
     e.preventDefault();
     if(!selected) return setMessage("Select a retrieved or forwarded record before confirming forwarding.");
-    const result=onForward(selected.id,form); } catch (error) { setSaving(false); return setMessage(error.message || "Unable to save transaction."); }
+    setSaving(true);
+    let result;
+    try { result = await onForward(selected.id,form); } catch (error) { setSaving(false); return setMessage(error.message || "Unable to save transaction."); }
     setSaving(false);
     if (!result.ok) return setMessage(result.message);
     setMessage("Record forwarded successfully.");
