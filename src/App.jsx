@@ -131,7 +131,7 @@ function App() {
       id: r.id, recordNo: r.record_no, memberName: r.member_name,
       category: r.category, status: r.status, location: r.location,
       custodianId: r.current_custodian_id,
-      custodian: r.current_custodian_id || r.location,
+      custodian: r.current_custodian_id ? (staff.find(p=>p.id===r.current_custodian_id) ? [staff.find(p=>p.id===r.current_custodian_id).first_name,staff.find(p=>p.id===r.current_custodian_id).last_name].filter(Boolean).join(" ") : "Assigned staff") : r.location,
       remarks: r.remarks || "",
       dateAdded: new Date(r.created_at).toLocaleDateString(),
       lastUpdated: new Date(r.updated_at).toLocaleString(),
@@ -197,7 +197,7 @@ function App() {
   } else if (page === "retrieve") {
     content = <RetrieveRecord records={records} onRetrieve={retrieveRecord} staff={staff} profile={profile} initialRecord={selectedRecord?.status === "Available" ? selectedRecord : null} />;
   } else if (page === "forward") {
-    content = <ForwardRecord records={records} onForward={forwardRecord} staff={staff} profile={profile} initialRecord={selectedRecord?.status !== "Available" ? selectedRecord : null} />;
+    content = <ForwardRecord records={records} onForward={forwardRecord} staff={staff} profile={profile} initialRecord={selectedRecord?.status && selectedRecord.status !== "Available" ? selectedRecord : null} />;
   } else if (page === "returns") {
     content = <Returns records={records} onReturn={returnRecord} profile={profile} />;
   } else if (page === "history") {
