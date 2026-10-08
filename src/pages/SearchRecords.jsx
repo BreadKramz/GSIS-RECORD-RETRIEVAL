@@ -18,7 +18,7 @@ function SearchRecords({ records, onBack, onSelectRecord }) {
     const q = query.trim().toLowerCase();
     const matchesQuery = !q || [record.recordNo, record.memberName, record.location, record.custodian].some((value) => value?.toLowerCase().includes(q));
     return matchesQuery && (type === "All" || record.category === type);
-  }), [query, type]);
+  }), [records, query, type]);
 
   return (
     <div className="min-h-screen bg-[#F3F5F7] text-[#243746]">
